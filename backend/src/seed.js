@@ -173,7 +173,7 @@ async function runSeed() {
       ventesCount: 48,
       isNouveau: true,
       description: "Formule ultra-légère pour réduire l'apparence des imperfections cutanées et réguler le sébum.",
-      imageUrl: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1608248597359-59754f923287?auto=format&fit=crop&w=600&q=80",
       imageUrl2: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=600&q=80"
     },
     {

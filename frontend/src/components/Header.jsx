@@ -135,8 +135,8 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
   return (
     <>
       <header style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", position: "sticky", top: 0, zIndex: 1000, boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
-        {/* ROW 1: MAIN HEADER ROW */}
-        <div style={{ maxWidth: 1520, margin: "0 auto", padding: "12px clamp(16px, 2.5vw, 36px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
+        {/* ROW 1: MAIN HEADER ROW (Z-INDEX ÉLEVÉ POUR FLOTTER AU-DESSUS DE TOUT) */}
+        <div style={{ position: "relative", zIndex: 2000, maxWidth: 1520, margin: "0 auto", padding: "14px clamp(16px, 2.5vw, 36px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
 
           {/* LOGO & NOM D'ENTREPRISE : MAQUETTE LUXE & ÉLÉGANTE */}
           <Link to="/" style={{ display: "flex", alignItems: "center", gap: 14, textDecoration: "none", flexShrink: 0 }}>
@@ -179,7 +179,7 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
 
           {/* VISIBLE & PROMINENT SEARCH INPUT (DESKTOP) - MAXIMUM LONGUEUR BIEN CADRÉE */}
           <div ref={searchRef} className="bs-header-search" style={{ 
-              flex: 1, maxWidth: 860, margin: "0 24px", height: 48, position: "relative", zIndex: 100,
+              flex: 1, maxWidth: 860, margin: "0 24px", height: 48, position: "relative", zIndex: 2100,
               transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2)"
           }}>
             {/* Overlay background when search is focused */}
@@ -538,7 +538,7 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
         </div>
 
         {/* ROW 2: DESKTOP NAVIGATION BAR (BOUTONS MAQUETTE HAUT DE GAMME) */}
-        <div className="bs-desktop-nav" style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)" }}>
+        <div className="bs-desktop-nav" style={{ position: "relative", zIndex: 100, background: "var(--card)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)" }}>
           <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
             
             {/* ACCUEIL */}
@@ -673,7 +673,7 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
         </div>
 
         {/* ROW 3: SECONDARY CATEGORIES BAR & GALLERY (DROPDOWN PLEINEMENT VISIBLE ET FLOTTANT) */}
-        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", position: "relative", zIndex: 900 }}>
+        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", position: "relative", zIndex: 50 }}>
           <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box", position: "relative" }}>
 
             {/* DROPDOWN BUTTON FOR ALL CATEGORIES */}

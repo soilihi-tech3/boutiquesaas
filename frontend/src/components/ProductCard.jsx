@@ -71,6 +71,10 @@ export default function ProductCard({ product, isFavorisPage }) {
           alt={product.nom} 
           loading="lazy"
           decoding="async"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = defaultImg;
+          }}
           className={`bs-thumb-img ${secondaryImage ? "has-hover" : "zoom-hover"}`} 
         />
         {secondaryImage && (
@@ -79,6 +83,10 @@ export default function ProductCard({ product, isFavorisPage }) {
             alt={`${product.nom} 2`} 
             loading="lazy"
             decoding="async"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = defaultImg;
+            }}
             className="bs-thumb-img secondary zoom-hover" 
           />
         )}
