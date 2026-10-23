@@ -766,7 +766,7 @@ router.put("/boutique", requireRole("admin"), async (req, res, next) => {
     const { 
       nom, logoUrl, couleurPrincipale, devise, fraisLivraison, zonesLivraison, 
       bannerSlides, sideBanners, telephone, telephone2, adresse, adresse2, adresseRetrait, 
-      emailContact, aProposText, aProposImageUrl, horairesOuverture, facebookUrl, instagramUrl, 
+      emailContact, aProposText, aProposImageUrl, aProposBannerUrl, horairesOuverture, facebookUrl, instagramUrl, 
       tiktokUrl, whatsappNumber, modesPaiement, modulesActifs,
       customDomain, stripePublishableKey, stripeSecretKey, stripeAccountId,
       paydunyaMasterKey, paydunyaPrivateKey, paydunyaToken,
@@ -811,7 +811,7 @@ router.put("/boutique", requireRole("admin"), async (req, res, next) => {
     await boutique.update({ 
       nom, logoUrl, couleurPrincipale, devise: devise || boutique.devise || "KMF", fraisLivraison, zonesLivraison, 
       bannerSlides, sideBanners, telephone, telephone2, adresse, adresse2, adresseRetrait, 
-      emailContact, aProposText, aProposImageUrl, horairesOuverture, facebookUrl, instagramUrl, 
+      emailContact, aProposText, aProposImageUrl, aProposBannerUrl, horairesOuverture, facebookUrl, instagramUrl, 
       tiktokUrl, whatsappNumber, modesPaiement: cleanModesPaiement, modulesActifs,
       customDomain: targetCustomDomain,
       ...(stripePublishableKey !== undefined && { stripePublishableKey }),

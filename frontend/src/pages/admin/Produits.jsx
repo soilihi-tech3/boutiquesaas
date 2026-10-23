@@ -361,9 +361,9 @@ export default function AdminProduits() {
                 onChange={(e) => setFilterGenre(e.target.value)}
               >
                 <option value="">Toutes collections</option>
-                <option value="femme">Femme 👩</option>
-                <option value="homme">Homme 👨</option>
-                <option value="mixte">Mixte ✨</option>
+                <option value="femme">Femme</option>
+                <option value="homme">Homme</option>
+                <option value="mixte">Mixte</option>
               </select>
 
               <select 
@@ -439,7 +439,7 @@ export default function AdminProduits() {
                           background: "#EFF6FF", color: "#1E40AF", border: "1.5px solid #BFDBFE",
                           padding: "3px 9px", borderRadius: 12, fontSize: 11.5, fontWeight: 800 
                         }}>
-                          Homme 👨
+                          Homme
                         </span>
                       ) : g === "mixte" ? (
                         <span style={{ 
@@ -447,7 +447,7 @@ export default function AdminProduits() {
                           background: "#FFFBEB", color: "#B45309", border: "1.5px solid #FDE68A",
                           padding: "3px 9px", borderRadius: 12, fontSize: 11.5, fontWeight: 800 
                         }}>
-                          Mixte ✨
+                          Mixte
                         </span>
                       ) : (
                         <span style={{ 
@@ -455,7 +455,7 @@ export default function AdminProduits() {
                           background: "#FDF2F8", color: "#9D174D", border: "1.5px solid #FBCFE8",
                           padding: "3px 9px", borderRadius: 12, fontSize: 11.5, fontWeight: 800 
                         }}>
-                          Femme 👩
+                          Femme
                         </span>
                       )}
                     </td>
@@ -554,7 +554,7 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "femme")} 
                       style={{ display: "none" }}
                     />
-                    Femme 👩
+                    Femme
                   </label>
 
                   <label style={{
@@ -573,7 +573,7 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "homme")} 
                       style={{ display: "none" }}
                     />
-                    Homme 👨
+                    Homme
                   </label>
 
                   <label style={{
@@ -592,7 +592,7 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "mixte")} 
                       style={{ display: "none" }}
                     />
-                    Mixte ✨
+                    Mixte
                   </label>
                 </div>
               </div>

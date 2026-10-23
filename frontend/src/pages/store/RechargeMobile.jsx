@@ -636,7 +636,7 @@ export default function RechargeMobile() {
                 Destinataire : <strong>+269 {phone || operator.sampleNumber}</strong> ({operator.name})
               </div>
               <div style={{ fontSize: 12, color: "#166534", marginTop: 4, fontWeight: 600 }}>
-                ⚡ Crédit envoyé instantanément au destinataire dès validation du paiement.
+                Crédit envoyé instantanément au destinataire dès validation du paiement.
               </div>
             </div>
 
@@ -854,7 +854,7 @@ export default function RechargeMobile() {
             {!isModuleActive ? (
               <span>Service désactivé</span>
             ) : maintenanceInfo ? (
-              <span>⚠️ Service en maintenance (Réessayez dans quelques minutes)</span>
+              <span>Service en maintenance (Réessayez dans quelques minutes)</span>
             ) : (
               <>
                 {moyenPaiement === "wave" ? <Smartphone size={20} /> :

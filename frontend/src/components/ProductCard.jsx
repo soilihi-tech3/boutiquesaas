@@ -16,7 +16,7 @@ export default function ProductCard({ product, isFavorisPage }) {
     ? product.avis.reduce((s, a) => s + a.note, 0) / product.avis.length
     : (product.noteEtoiles !== undefined && product.noteEtoiles !== null ? Number(product.noteEtoiles) : 5.0);
 
-  const defaultImg = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80";
+  const defaultImg = "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=600&q=80";
   const mainImage = product.imageUrl || defaultImg;
   const secondaryImage = product.imageUrl2 || null;
 
@@ -126,11 +126,11 @@ export default function ProductCard({ product, isFavorisPage }) {
         {(() => {
           const g = (product.genre || "femme").toLowerCase();
           const config = g === "homme" ? {
-            bg: "#1E3A8A", text: "#FFFFFF", label: "Homme 👨"
+            bg: "#1E3A8A", text: "#FFFFFF", label: "Homme"
           } : g === "mixte" ? {
-            bg: "#B45309", text: "#FFFFFF", label: "Mixte ✨"
+            bg: "#B45309", text: "#FFFFFF", label: "Mixte"
           } : {
-            bg: "#BE185D", text: "#FFFFFF", label: "Femme 👩"
+            bg: "#BE185D", text: "#FFFFFF", label: "Femme"
           };
           return (
             <span style={{

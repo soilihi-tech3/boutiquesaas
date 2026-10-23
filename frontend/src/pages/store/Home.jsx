@@ -455,7 +455,7 @@ export default function Home() {
       {/* 5. COLLECTIONS : SECTION FEMME, SECTION HOMME, SECTION MIXTE (APRÈS) */}
       {femmeProducts.length > 0 && (
         <CategoryScrollSection
-          category={{ id: "genre-femme", nom: "Collection Femme 👩" }}
+          category={{ id: "genre-femme", nom: "Collection Femme" }}
           products={femmeProducts}
           badgeColor="#BE185D"
           onNavigate={() => navigate("/catalogue?genre=femme")}
@@ -464,7 +464,7 @@ export default function Home() {
 
       {hommeProducts.length > 0 && (
         <CategoryScrollSection
-          category={{ id: "genre-homme", nom: "Collection Homme 👨" }}
+          category={{ id: "genre-homme", nom: "Collection Homme" }}
           products={hommeProducts}
           badgeColor="#1E3A8A"
           onNavigate={() => navigate("/catalogue?genre=homme")}
@@ -473,7 +473,7 @@ export default function Home() {
 
       {mixteProducts.length > 0 && (
         <CategoryScrollSection
-          category={{ id: "genre-mixte", nom: "Collection Mixte & Unisexe ✨" }}
+          category={{ id: "genre-mixte", nom: "Collection Mixte & Unisexe" }}
           products={mixteProducts}
           badgeColor="#B45309"
           onNavigate={() => navigate("/catalogue?genre=mixte")}
@@ -571,7 +571,7 @@ export default function Home() {
                   color: avisGenre === "femme" ? "#fff" : "var(--ink)"
                 }}
               >
-                Avis Femmes 👩
+                Avis Femmes
               </button>
               <button
                 onClick={() => setAvisGenre("homme")}
@@ -581,7 +581,7 @@ export default function Home() {
                   color: avisGenre === "homme" ? "#fff" : "var(--ink)"
                 }}
               >
-                Avis Hommes 👨
+                Avis Hommes
               </button>
             </div>
           </div>
@@ -649,7 +649,7 @@ export default function Home() {
 
                   <div style={{ marginTop: "auto", paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontSize: 11, color: "var(--muted)" }}>
-                      {t.genre === "homme" ? "Avis Client Homme 👨" : "Avis Cliente Femme 👩"}
+                      {t.genre === "homme" ? "Avis Client Homme" : "Avis Cliente Femme"}
                     </span>
                     <span style={{ fontSize: 11.5, color: "#16A34A", fontWeight: 800 }}>
                       ✓ Reçu sur WhatsApp

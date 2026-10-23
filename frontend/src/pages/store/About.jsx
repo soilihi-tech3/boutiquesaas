@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Store, ShieldCheck, Truck, Leaf, Phone, MapPin, Mail, ArrowRight, Award, Check, Smartphone, Package, Shield } from "lucide-react";
+import { Store, ShieldCheck, Truck, Sparkles, Phone, MapPin, Mail, ArrowRight, Award, Check, Package, Shield, HeartHandshake } from "lucide-react";
 import api, { SLUG } from "../../api";
 
 function CountUp({ end, duration = 2000 }) {
@@ -38,11 +38,41 @@ export default function About() {
     api.get(`/store/${SLUG}`).then(res => setBoutique(res.data)).catch(() => {});
   }, []);
 
+  // Détection dynamique de l'image de bannière hero depuis les données de la boutique
+  const dynamicHeroBanner = (() => {
+    if (boutique?.aProposBannerUrl) return boutique.aProposBannerUrl;
+    if (boutique?.bannerSlides) {
+      let slides = boutique.bannerSlides;
+      if (typeof slides === "string") {
+        try { slides = JSON.parse(slides); } catch (e) { slides = []; }
+      }
+      if (Array.isArray(slides) && slides.length > 0 && slides[0]?.imageUrl) {
+        return slides[0].imageUrl;
+      }
+    }
+    return "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1600&q=80";
+  })();
+
+  // Image dynamique de présentation
+  const dynamicAboutImage = (() => {
+    if (boutique?.aProposImageUrl) return boutique.aProposImageUrl;
+    if (boutique?.bannerSlides) {
+      let slides = boutique.bannerSlides;
+      if (typeof slides === "string") {
+        try { slides = JSON.parse(slides); } catch (e) { slides = []; }
+      }
+      if (Array.isArray(slides) && slides.length > 1 && slides[1]?.imageUrl) {
+        return slides[1].imageUrl;
+      }
+    }
+    return boutique?.logoUrl || "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80";
+  })();
+
   return (
     <div style={{ paddingBottom: 60 }}>
       <style>{`
         .modern-service-card {
-          background: #fff;
+          background: var(--card, #fff);
           border-radius: 16px;
           padding: 24px;
           box-shadow: 0 4px 14px rgba(0,0,0,0.05);
@@ -63,14 +93,15 @@ export default function About() {
           margin-bottom: 40px;
         }
       `}</style>
-      {/* BANNIÈRE HÉRO À PROPOS */}
+
+      {/* BANNIÈRE HÉRO À PROPOS DYNAMIQUE */}
       <div className="bs-about-hero" style={{
         position: "relative",
         borderRadius: 20,
         overflow: "hidden",
         minHeight: 240,
         margin: "16px 0 32px",
-        backgroundImage: "url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80')",
+        backgroundImage: `url('${dynamicHeroBanner}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -79,23 +110,23 @@ export default function About() {
         color: "#fff",
         textAlign: "center",
         boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
-        padding: "32px 16px"
+        padding: "36px 16px"
       }}>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(16,42,28,0.75), rgba(16,42,28,0.9))" }}></div>
-        <div style={{ position: "relative", zIndex: 2, maxWidth: 700 }}>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(15,23,42,0.75), rgba(15,23,42,0.9))" }}></div>
+        <div style={{ position: "relative", zIndex: 2, maxWidth: 720 }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             background: "rgba(255,255,255,0.15)", backdropFilter: "blur(6px)",
-            padding: "6px 14px", borderRadius: 20, fontSize: 12, fontWeight: 700,
+            padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 700,
             textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 12
           }}>
-            <Leaf size={15} color="#A7F3D0" /> Notre Histoire & Engagement
+            <Sparkles size={15} color="#F472B6" /> Notre Histoire & Engagement
           </div>
           <h1 style={{ fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 900, margin: 0, letterSpacing: "-0.5px" }}>
-            À propos de {boutique?.nom || "Marché Vert"}
+            À propos de {boutique?.nom || "Élégance & Cosmétiques"}
           </h1>
           <p style={{ fontSize: "clamp(13.5px, 3.5vw, 16px)", marginTop: 10, opacity: 0.95, lineHeight: 1.6 }}>
-            Votre partenaire de confiance pour des produits frais, locaux, et naturels livrés directement chez vous.
+            Votre référence exclusive en cosmétiques de luxe, soins visage & corps, parfumerie, peignes et broches bijoux raffinées.
           </p>
         </div>
       </div>
@@ -108,7 +139,7 @@ export default function About() {
           </h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, color: "var(--ink)", marginBottom: 20 }}>
             {boutique?.aProposText || 
-              "Bienvenue dans notre boutique en ligne. Nous sommes passionnés par la fraîcheur, la qualité supérieure et l'authenticité de nos produits. Sélectionnés rigoureusement auprès de producteurs engagés, nous apportons le meilleur des légumes bio, des fruits de saison, de l'épicerie fine et des soins cosmétiques naturels directement sur votre table."
+              "Bienvenue chez Élégance & Cosmétiques. Nous sélectionnons avec passion les meilleurs soins de beauté, sérums pour le visage et le corps, parfums d'exception, peignes en bois antistatiques et broches bijoux raffinées. Tous nos articles sont certifiés 100% authentiques et rigoureusement choisis auprès des plus grandes marques pour sublimer votre élégance au quotidien."
             }
           </p>
           
@@ -116,10 +147,10 @@ export default function About() {
             {/* Card 1 */}
             <div className="modern-service-card" style={{ padding: 24 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, color: "var(--forest-dark)", fontWeight: 800, marginBottom: 8, fontSize: 15 }}>
-                <ShieldCheck size={20} color="var(--forest)" /> 100% Qualité
+                <ShieldCheck size={20} color="var(--forest)" /> 100% Authentique
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                Articles contrôlés et certifiés pour une fraîcheur irréprochable.
+                Tous nos cosmétiques et soins sont originaux et certifiés de qualité supérieure.
               </p>
             </div>
 
@@ -129,27 +160,27 @@ export default function About() {
                 <Truck size={20} color="var(--forest)" /> Livraison Rapide
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                Livraison express à domicile ou en point de retrait.
+                Livraison express soignée directement à domicile ou en point de retrait.
               </p>
             </div>
 
             {/* Card 3 */}
             <div className="modern-service-card" style={{ padding: 24 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, color: "var(--forest-dark)", fontWeight: 800, marginBottom: 8, fontSize: 15 }}>
-                <Package size={20} color="var(--accent)" /> Suivi de Colis
+                <Package size={20} color="var(--accent)" /> Suivi WhatsApp
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                Suivez votre colis de la France aux Comores en temps réel.
+                Notification directe et suivi de votre colis en temps réel jusqu'à réception.
               </p>
             </div>
 
             {/* Card 4 */}
             <div className="modern-service-card" style={{ padding: 24 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, color: "var(--forest-dark)", fontWeight: 800, marginBottom: 8, fontSize: 15 }}>
-                <Shield size={20} color="#0284C7" /> Emballage Sécurisé
+                <Shield size={20} color="#0284C7" /> Emballage Raffiné
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                Vos produits sont emballés avec le plus grand soin.
+                Vos soins et accessoires de beauté sont emballés avec la plus grande délicatesse.
               </p>
             </div>
           </div>
@@ -158,58 +189,55 @@ export default function About() {
           <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 16 }}>
             <div className="modern-service-card" style={{ padding: "16px 10px", alignItems: "center", textAlign: "center" }}>
               <div style={{ fontSize: 22, fontWeight: 900, color: "var(--forest)", marginBottom: 4 }}><CountUp end={6759} />+</div>
-              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Personnes<br/>Satisfaites</div>
+              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Clientes & Clients<br/>Comblés</div>
             </div>
             <div className="modern-service-card" style={{ padding: "16px 10px", alignItems: "center", textAlign: "center" }}>
               <div style={{ fontSize: 22, fontWeight: 900, color: "var(--accent)", marginBottom: 4 }}><CountUp end={35009} />+</div>
-              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Retours<br/>Positifs</div>
+              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Avis Positifs<br/>Vérifiés</div>
             </div>
             <div className="modern-service-card" style={{ padding: "16px 10px", alignItems: "center", textAlign: "center" }}>
               <div style={{ fontSize: 22, fontWeight: 900, color: "#0284C7", marginBottom: 4 }}><CountUp end={47995} />+</div>
               <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Commandes<br/>Livrées</div>
             </div>
             <div className="modern-service-card" style={{ padding: "16px 10px", alignItems: "center", textAlign: "center" }}>
-              <div style={{ fontSize: 22, fontWeight: 900, color: "#7C3AED", marginBottom: 4 }}><CountUp end={67595} />+</div>
-              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Colis<br/>Envoyés</div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: "#BE185D", marginBottom: 4 }}><CountUp end={67595} />+</div>
+              <div style={{ fontSize: 12, color: "var(--forest-dark)", fontWeight: 700, lineHeight: 1.3 }}>Articles<br/>Beauté Expédiés</div>
             </div>
           </div>
         </div>
 
+        {/* IMAGE DYNAMIQUE DE PRÉSENTATION */}
         <div style={{ position: "relative", marginTop: 12, display: "flex", justifyContent: "center" }}>
           <img 
-            src={boutique?.aProposImageUrl || "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80"} 
+            src={dynamicAboutImage} 
             alt="À propos" 
-            onClick={() => {
-              if (boutique?.aProposImageUrl) setIsZoomed(true);
-            }}
+            onClick={() => setIsZoomed(true)}
             style={{ 
               width: "100%", 
               maxWidth: 420,
-              height: boutique?.aProposImageUrl ? "auto" : 340, 
-              objectFit: boutique?.aProposImageUrl ? "contain" : "cover", 
+              height: 360, 
+              objectFit: "cover", 
               borderRadius: 18, 
               boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-              cursor: boutique?.aProposImageUrl ? "zoom-in" : "default" 
+              cursor: "zoom-in" 
             }}
           />
-          {!boutique?.aProposImageUrl && (
-            <div style={{
-              position: "absolute", bottom: -14, left: 14, right: 14,
-              background: "#fff", padding: "12px 16px", borderRadius: 14,
-              boxShadow: "0 6px 20px rgba(0,0,0,0.1)", border: "1px solid var(--line)",
-              display: "flex", alignItems: "center", gap: 12,
-              maxWidth: 392,
-              margin: "0 auto"
-            }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--forest-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Award size={20} color="var(--forest-dark)" />
-              </div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: 13.5, color: "var(--forest-dark)" }}>Direct Producteurs</div>
-                <div style={{ fontSize: 11.5, color: "var(--muted)" }}>Produits de saison & éco-responsables</div>
-              </div>
+          <div style={{
+            position: "absolute", bottom: -14, left: 14, right: 14,
+            background: "#fff", padding: "12px 16px", borderRadius: 14,
+            boxShadow: "0 6px 20px rgba(0,0,0,0.1)", border: "1px solid var(--line)",
+            display: "flex", alignItems: "center", gap: 12,
+            maxWidth: 392,
+            margin: "0 auto"
+          }}>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--forest-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Award size={20} color="var(--forest-dark)" />
             </div>
-          )}
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 13.5, color: "var(--forest-dark)" }}>Grandes Marques Certifiées</div>
+              <div style={{ fontSize: 11.5, color: "var(--muted)" }}>Cosmétiques, peignes & broches d'exception</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -226,7 +254,7 @@ export default function About() {
               <MapPin size={18} /> Nos Adresses & Boutiques
             </div>
             <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
-              <MapPin size={14} color="var(--forest)" style={{ flexShrink: 0 }} /> {boutique?.adresse || "Adresse principale non renseignée"}
+              <MapPin size={14} color="var(--forest)" style={{ flexShrink: 0 }} /> {boutique?.adresse || "Moroni Centre, Grande Comore"}
             </div>
             {boutique?.adresse2 && (
               <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, marginTop: 6, display: "flex", alignItems: "center", gap: 6 }}>
@@ -238,10 +266,10 @@ export default function About() {
           {/* NOUS CONTACTER */}
           <div style={{ background: "#fff", padding: 18, borderRadius: 14, border: "1px solid var(--line)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--forest)", fontWeight: 800, fontSize: 14.5, marginBottom: 10 }}>
-              <Phone size={18} /> Téléphones & Assistance
+              <Phone size={18} /> Téléphones & Assistance WhatsApp
             </div>
             <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600 }}>
-              {boutique?.telephone || "+33 1 23 45 67 89"}
+              {boutique?.telephone || "+269 332 00 00"}
             </div>
             {boutique?.telephone2 && (
               <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, marginTop: 6 }}>
@@ -250,43 +278,20 @@ export default function About() {
             )}
           </div>
 
-          {/* EMAIL */}
+          {/* HORAIRES */}
           <div style={{ background: "#fff", padding: 18, borderRadius: 14, border: "1px solid var(--line)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--forest)", fontWeight: 800, fontSize: 14.5, marginBottom: 10 }}>
-              <Mail size={18} /> Contact Email
+              <Store size={18} /> Service Client & Horaires
             </div>
-            <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, wordBreak: "break-word" }}>
-              {boutique?.emailContact || "contact@marchevert.com"}
+            <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600 }}>
+              {boutique?.horaires || "Du Lundi au Samedi : 08h00 - 19h00"}
+            </div>
+            <div style={{ fontSize: 11.5, color: "var(--muted)", marginTop: 4 }}>
+              Commandes en ligne 24h/24, 7j/7
             </div>
           </div>
         </div>
-
-        <div style={{ textAlign: "center", marginTop: 24 }}>
-          <Link to="/catalogue">
-            <button className="bs-btn-primary" style={{ padding: "12px 24px", fontSize: 13.5, borderRadius: 24, width: "100%", maxWidth: 300 }}>
-              Découvrir nos produits <ArrowRight size={16} />
-            </button>
-          </Link>
-        </div>
       </div>
-
-      {isZoomed && (
-        <div 
-          style={{
-            position: "fixed", inset: 0, zIndex: 99999,
-            backgroundColor: "rgba(0,0,0,0.85)", backdropFilter: "blur(4px)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: 20, cursor: "zoom-out"
-          }}
-          onClick={() => setIsZoomed(false)}
-        >
-          <img 
-            src={boutique?.aProposImageUrl} 
-            alt="Zoom"
-            style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: 8, boxShadow: "0 10px 40px rgba(0,0,0,0.5)" }}
-          />
-        </div>
-      )}
     </div>
   );
 }

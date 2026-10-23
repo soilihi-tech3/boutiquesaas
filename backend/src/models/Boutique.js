@@ -22,6 +22,7 @@ const Boutique = sequelize.define("Boutique", {
   emailContact: { type: DataTypes.STRING(150) },
   aProposText: { type: DataTypes.TEXT },
   aProposImageUrl: { type: DataTypes.TEXT("long") },
+  aProposBannerUrl: { type: DataTypes.TEXT("long") },
   horairesOuverture: { type: DataTypes.STRING(255), defaultValue: "Tous les jours de 08h30 à 23h00" },
   facebookUrl: { type: DataTypes.STRING(255), defaultValue: "" },
   instagramUrl: { type: DataTypes.STRING(255), defaultValue: "" },

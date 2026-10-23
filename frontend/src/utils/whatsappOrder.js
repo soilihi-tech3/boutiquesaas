@@ -102,7 +102,7 @@ export async function processWhatsAppOrder({ boutique, user, cart, subtotal, fra
         createdOrder = res.data;
         orderNumber = "COM-B" + String(res.data.id).padStart(3, "0");
       } catch (err) {
-        console.warn("⚠️ Impossible d'enregistrer la commande WhatsApp dans la DB :", err.message);
+        console.warn("Impossible d'enregistrer la commande WhatsApp dans la DB :", err.message);
       }
     }
 

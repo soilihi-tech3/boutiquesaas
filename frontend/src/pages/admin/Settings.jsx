@@ -95,10 +95,10 @@ export default function AdminSettings({ defaultTab = "general" }) {
   function addSlide() {
     const newSlide = {
       id: Date.now(),
-      title: "Nouvelle diapositive",
-      subtitle: "Offres fraîches du jour",
-      imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80",
-      buttonText: "Découvrir le marché",
+      title: "Nouvelle Collection",
+      subtitle: "Soins d'exception & cosmétiques",
+      imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1600&q=80",
+      buttonText: "Découvrir la collection",
       categoryId: categories[0]?.id || ""
     };
     set("bannerSlides", [...slidesList, newSlide]);
@@ -118,9 +118,9 @@ export default function AdminSettings({ defaultTab = "general" }) {
   function addSideBanner() {
     const newSide = {
       id: Date.now(),
-      title: "Promotions Spéciales",
+      title: "Promotions Beauté & Cosmétiques",
       subtitle: "Jusqu'à -30% cette semaine",
-      imageUrl: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
       buttonText: "Acheter maintenant",
       categoryId: categories[0]?.id || ""
     };
@@ -374,16 +374,23 @@ export default function AdminSettings({ defaultTab = "general" }) {
             </div>
           </div>
 
-          <h3 style={{ marginTop: 28, fontSize: 16, color: "var(--forest-dark)" }}>Section « À propos de nous »</h3>
+          <h3 style={{ marginTop: 28, fontSize: 16, color: "var(--forest-dark)" }}>Section « À propos de nous » (100% Dynamique)</h3>
           <div className="bs-field">
-            <label>Description & Présentation de l'entreprise</label>
+            <label>Description & Présentation de la boutique</label>
             <textarea
               className="bs-input"
               rows={4}
               value={boutique.aProposText || ""}
               onChange={(e) => set("aProposText", e.target.value)}
-              placeholder="Présentez votre entreprise, vos valeurs, vos produits frais et bio..."
+              placeholder="Présentez votre boutique, vos cosmétiques, vos soins et votre univers d'élégance..."
               style={{ padding: 12 }}
+            />
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <ImageUploader
+              label="Bannière d'en-tête (Hero) de la page À propos"
+              value={boutique.aProposBannerUrl || ""}
+              onChange={(url) => set("aProposBannerUrl", url)}
             />
           </div>
           <div style={{ marginTop: 16 }}>

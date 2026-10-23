@@ -240,7 +240,7 @@ export default function Catalogue() {
             <img
               src={
                 c.imageUrl ||
-                "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80"
+                "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=300&q=80"
               }
               alt={c.nom}
               loading="lazy"
@@ -314,7 +314,7 @@ export default function Catalogue() {
                 transition: "all 0.2s"
               }}
             >
-              Femme 👩
+              Femme
             </button>
 
             <button
@@ -339,7 +339,7 @@ export default function Catalogue() {
                 transition: "all 0.2s"
               }}
             >
-              Homme 👨
+              Homme
             </button>
 
             <button
@@ -364,7 +364,7 @@ export default function Catalogue() {
                 transition: "all 0.2s"
               }}
             >
-              Mixte ✨
+              Mixte
             </button>
           </div>
         </div>

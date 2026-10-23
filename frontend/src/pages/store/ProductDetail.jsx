@@ -179,7 +179,7 @@ export default function ProductDetail() {
   if (product.imageUrl) images.push(product.imageUrl);
   if (product.imageUrl2) images.push(product.imageUrl2);
   if (images.length === 0) {
-    images.push("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80");
+    images.push("https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80");
   }
 
   const noteMoyenne = product.avis?.length
@@ -234,7 +234,7 @@ export default function ProductDetail() {
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
             <span style={{ color: "var(--sage)", fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              {product.Category?.nom || "Électrique"}
+              {product.Category?.nom || "Beauté & Soins"}
             </span>
 
             {(product.marque?.nom || product.Marque?.nom) && (
@@ -260,7 +260,7 @@ export default function ProductDetail() {
                     background: "#EFF6FF", color: "#1E40AF", border: "1.5px solid #BFDBFE",
                     padding: "3px 12px", borderRadius: 12, fontSize: 12, fontWeight: 800 
                   }}>
-                    Collection Homme 👨
+                    Collection Homme
                   </span>
                 );
               }
@@ -271,7 +271,7 @@ export default function ProductDetail() {
                     background: "#FFFBEB", color: "#B45309", border: "1.5px solid #FDE68A",
                     padding: "3px 12px", borderRadius: 12, fontSize: 12, fontWeight: 800 
                   }}>
-                    Collection Mixte ✨
+                    Collection Mixte
                   </span>
                 );
               }
@@ -281,7 +281,7 @@ export default function ProductDetail() {
                   background: "#FDF2F8", color: "#9D174D", border: "1.5px solid #FBCFE8",
                   padding: "3px 12px", borderRadius: 12, fontSize: 12, fontWeight: 800 
                 }}>
-                  Collection Femme 👩
+                  Collection Femme
                 </span>
               );
             })()}

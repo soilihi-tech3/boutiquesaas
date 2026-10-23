@@ -162,7 +162,7 @@ export default function Register() {
                 <UserPlus size={26} color="var(--forest)" />
               </div>
               <h2>Créer un compte client</h2>
-              <p>Rejoignez-nous pour commander vos produits frais et bio en quelques clics</p>
+              <p>Rejoignez-nous pour commander vos cosmétiques, soins et accessoires en quelques clics</p>
             </div>
 
             {erreur && (

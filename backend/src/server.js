@@ -144,6 +144,7 @@ app.get("/api/boutique/current", (req, res) => {
     emailContact: b.emailContact,
     aProposText: b.aProposText,
     aProposImageUrl: b.aProposImageUrl,
+    aProposBannerUrl: b.aProposBannerUrl,
     horairesOuverture: b.horairesOuverture,
     facebookUrl: b.facebookUrl,
     instagramUrl: b.instagramUrl,

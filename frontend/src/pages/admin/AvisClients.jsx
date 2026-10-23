@@ -203,11 +203,11 @@ export default function AdminAvisClients() {
                   <td>
                     {t.genre === "homme" ? (
                       <span style={{ background: "#EFF6FF", color: "#1E40AF", border: "1px solid #BFDBFE", padding: "3px 10px", borderRadius: 12, fontSize: 12, fontWeight: 800 }}>
-                        Homme 👨
+                        Homme
                       </span>
                     ) : (
                       <span style={{ background: "#FDF2F8", color: "#9D174D", border: "1px solid #FBCFE8", padding: "3px 10px", borderRadius: 12, fontSize: 12, fontWeight: 800 }}>
-                        Femme 👩
+                        Femme
                       </span>
                     )}
                   </td>
@@ -229,7 +229,7 @@ export default function AdminAvisClients() {
                         style={{ display: "inline-flex", alignItems: "center", gap: 8, cursor: "pointer", background: "#F8FAFC", padding: "4px 8px", borderRadius: 8, border: "1px solid var(--line)", marginBottom: t.message ? 4 : 0 }}
                       >
                         <img src={t.captureUrl} alt="Capture" style={{ width: 36, height: 36, borderRadius: 4, objectFit: "cover" }} />
-                        <span style={{ fontSize: 12, color: "var(--forest)", fontWeight: 700 }}>🔍 Agrandir capture</span>
+                        <span style={{ fontSize: 12, color: "var(--forest)", fontWeight: 700 }}>Agrandir capture</span>
                       </div>
                     )}
                     {t.message && (
@@ -316,7 +316,7 @@ export default function AdminAvisClients() {
                     fontWeight: 800, fontSize: 13
                   }}>
                     <input type="radio" name="genre" value="femme" checked={form.genre === "femme"} onChange={() => set("genre", "femme")} style={{ display: "none" }} />
-                    Femme 👩
+                    Femme
                   </label>
                   <label style={{
                     flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -327,7 +327,7 @@ export default function AdminAvisClients() {
                     fontWeight: 800, fontSize: 13
                   }}>
                     <input type="radio" name="genre" value="homme" checked={form.genre === "homme"} onChange={() => set("genre", "homme")} style={{ display: "none" }} />
-                    Homme 👨
+                    Homme
                   </label>
                 </div>
               </div>
@@ -363,7 +363,7 @@ export default function AdminAvisClients() {
                   fontWeight: 800, fontSize: 13
                 }}>
                   <input type="radio" name="type" value="capture_whatsapp" checked={form.type === "capture_whatsapp"} onChange={() => set("type", "capture_whatsapp")} style={{ display: "none" }} />
-                  Capture d'écran WhatsApp 📱
+                  Capture d'écran WhatsApp
                 </label>
                 <label style={{
                   flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -374,7 +374,7 @@ export default function AdminAvisClients() {
                   fontWeight: 800, fontSize: 13
                 }}>
                   <input type="radio" name="type" value="texte" checked={form.type === "texte"} onChange={() => set("type", "texte")} style={{ display: "none" }} />
-                  Message Textuel Simple 💬
+                  Message Textuel Simple
                 </label>
               </div>
             </div>

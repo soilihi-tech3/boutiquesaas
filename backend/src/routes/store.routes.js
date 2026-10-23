@@ -86,6 +86,7 @@ router.get(["/:slug", "/:slug/boutique"], loadBoutique, cacheMiddleware(15), (re
     emailContact: b.emailContact,
     aProposText: b.aProposText,
     aProposImageUrl: b.aProposImageUrl,
+    aProposBannerUrl: b.aProposBannerUrl,
     horairesOuverture: b.horairesOuverture || "Tous les jours de 08h30 à 23h00",
     facebookUrl: b.facebookUrl || "",
     instagramUrl: b.instagramUrl || "",
