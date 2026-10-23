@@ -1,0 +1,24 @@
+{
+  "short_name": "Boutique",
+  "name": "Boutique en ligne",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1543083477-4f785aeafaa9?auto=format&fit=crop&w=192&h=192&q=80",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1543083477-4f785aeafaa9?auto=format&fit=crop&w=512&h=512&q=80",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#163424",
+  "theme_color": "#163424",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "description": "Application e-commerce et gestion de boutique en ligne et caisse POS."
+}

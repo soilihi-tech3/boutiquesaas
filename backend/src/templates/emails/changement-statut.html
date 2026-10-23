@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mise à jour commande #{{commandeId}} - {{boutiqueNom}}</title>
+  <style>
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #F4F6F4; margin: 0; padding: 20px; color: #2D3748; }
+    .card { max-width: 520px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .header { background-color: #163424; padding: 24px; text-align: center; color: #ffffff; }
+    .header h1 { margin: 0; font-size: 22px; font-weight: bold; }
+    .body { padding: 32px 28px; line-height: 1.6; }
+    .status-badge { background: #EBF7F0; border: 1px solid #2D8653; color: #163424; padding: 14px; border-radius: 10px; font-weight: bold; text-align: center; font-size: 16px; margin: 20px 0; }
+    .tracking-btn { display: inline-block; background-color: #163424; color: #ffffff !important; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; margin-top: 15px; text-align: center; }
+    .footer { font-size: 12px; color: #A0AEC0; text-align: center; padding: 20px; border-top: 1px solid #EDF2F7; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>{{boutiqueNom}}</h1>
+    </div>
+    <div class="body">
+      <h2 style="font-size: 18px; color: #163424; margin-top:0;">Bonjour {{nom}},</h2>
+      <p>Le statut de votre commande <strong>#{{commandeId}}</strong> a été mis à jour :</p>
+
+      <div class="status-badge">
+        Nouveau statut : {{nouveauStatut}}
+      </div>
+
+      <p>Vous pouvez suivre l'avancement de votre commande en direct depuis votre espace client.</p>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="{{suiviUrl}}" class="tracking-btn">Accéder à mon espace client</a>
+      </div>
+    </div>
+    <div class="footer">
+      &copy; 2026 {{boutiqueNom}}. Tous droits réservés.
+    </div>
+  </div>
+</body>
+</html>

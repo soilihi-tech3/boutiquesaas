@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande #{{commandeId}} confirmée - {{boutiqueNom}}</title>
+  <style>
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #F4F6F4; margin: 0; padding: 20px; color: #2D3748; }
+    .card { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .header { background-color: #163424; padding: 24px; text-align: center; color: #ffffff; }
+    .header h1 { margin: 0; font-size: 22px; font-weight: bold; }
+    .body { padding: 32px 28px; }
+    .summary-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .summary-table th { border-bottom: 2px solid #E2E8F0; text-align: left; font-size: 12px; color: #718096; text-transform: uppercase; padding-bottom: 8px; }
+    .summary-table td { padding: 10px 0; border-bottom: 1px solid #EDF2F7; }
+    .total-box { background: #163424; color: #ffffff; padding: 16px 20px; border-radius: 10px; font-size: 16px; font-weight: bold; margin-top: 20px; text-align: right; }
+    .tracking-btn { display: inline-block; background-color: #2D8653; color: #ffffff !important; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; margin-top: 20px; text-align: center; }
+    .footer { font-size: 12px; color: #A0AEC0; text-align: center; padding: 20px; border-top: 1px solid #EDF2F7; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>{{boutiqueNom}}</h1>
+    </div>
+    <div class="body">
+      <h2 style="color: #163424; font-size: 18px; margin-top:0;">Commande #{{commandeId}} confirmée</h2>
+      <p>Bonjour <strong>{{nom}}</strong>, merci pour votre commande ! Nous l'avons bien reçue et préparons son expédition.</p>
+
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th style="text-align: center;">Qté</th>
+            <th style="text-align: right;">Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{itemsHtml}}
+        </tbody>
+      </table>
+
+      <div style="font-size: 14px; margin-top: 15px; color: #4A5568; line-height: 1.6;">
+        <div><strong>Boutique :</strong> {{boutiqueNom}}</div>
+        <div><strong>Mode de livraison :</strong> {{modeLivraison}}</div>
+        <div><strong>Moyen de paiement :</strong> {{moyenPaiement}}</div>
+      </div>
+
+      <div class="total-box">
+        TOTAL : {{total}} €
+      </div>
+
+      <div style="text-align: center; margin-top: 25px;">
+        <a href="{{suiviUrl}}" class="tracking-btn">Suivre ma commande</a>
+      </div>
+    </div>
+    <div class="footer">
+      Merci pour votre confiance · &copy; 2026 {{boutiqueNom}}<br><br>
+      <span style="font-size: 10px; color: #CBD5E0;">Ceci est un e-mail automatique généré suite à votre achat. Merci de ne pas y répondre.</span>
+    </div>
+  </div>
+</body>
+</html>
