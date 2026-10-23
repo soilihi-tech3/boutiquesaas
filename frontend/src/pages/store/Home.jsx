@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ArrowRight, Star, CheckCircle, MessageCircle, X, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Star, CheckCircle, MessageCircle, X, ZoomIn, Truck, ShieldCheck, Sparkles } from "lucide-react";
 import api, { SLUG } from "../../api";
 import ProductCard from "../../components/ProductCard.jsx";
 import { subscribeRealtime } from "../../utils/realtime.js";
@@ -9,27 +9,33 @@ import { useData } from "../../context/DataContext.jsx";
 const DEFAULT_SLIDES = [
   {
     id: 1,
+    tag: "NOUVELLE COLLECTION",
     title: "Cosmétique, Soins & Beauté d'Exception",
     subtitle: "Sublimez votre éclat au quotidien avec nos sérums, crèmes et soins pour Femme & Homme.",
     imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1600&q=80",
     buttonText: "Découvrir la collection",
-    linkUrl: "/catalogue"
+    linkUrl: "/catalogue",
+    editorial: "Éclat & Pureté"
   },
   {
     id: 2,
+    tag: "ACCESSOIRES & BIJOUX",
     title: "Broches Élégantes & Accessoires Tendance",
     subtitle: "Magnifiques broches raffinées, pinces perles et accessoires bijoux pour parfaire vos tenues.",
     imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1600&q=80",
     buttonText: "Voir les broches",
-    linkUrl: "/catalogue?famille=Broches"
+    linkUrl: "/catalogue?famille=Broches",
+    editorial: "Style Lives Here"
   },
   {
     id: 3,
-    title: "Soins Cheveux, Peignes & Brosses Professionnels",
+    tag: "SOINS PROFESSIONNELS",
+    title: "Soins Cheveux, Peignes & Brosses",
     subtitle: "Peignes en bois antistatiques, brosses naturelles et soins capillaires revitalisants.",
     imageUrl: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1600&q=80",
     buttonText: "Commander maintenant",
-    linkUrl: "/catalogue?famille=Cheveux"
+    linkUrl: "/catalogue?famille=Cheveux",
+    editorial: "Soin Naturel"
   }
 ];
 
@@ -333,93 +339,135 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO SLIDER DYNAMIQUE */}
-      <div className="bs-slider">
-        <div 
-          className="bs-slider-track"
-          style={{
-            display: "flex",
-            width: `${slides.length * 100}%`,
-            height: "100%",
-            transform: `translateX(-${(activeSlide * 100) / slides.length}%)`,
-            transition: "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)"
-          }}
-        >
-          {slides.map((slide, idx) => (
-            <div 
-              key={slide.id || idx} 
-              className="bs-slide-item"
-              style={{
-                width: `${100 / slides.length}%`,
-                backgroundImage: `url(${slide.imageUrl})`,
-                cursor: "pointer"
-              }}
-              onClick={() => handleBannerClick(slide)}
-            >
-              <div className="bs-slide-overlay"></div>
-              <div className="bs-slide-content">
-                <div style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  background: "rgba(255, 255, 255, 0.18)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.35)",
-                  padding: "6px 16px",
-                  borderRadius: 30,
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: "#FDE68A",
-                  letterSpacing: "1.4px",
-                  textTransform: "uppercase",
-                  marginBottom: 14,
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)"
-                }}>
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#F59E0B", display: "inline-block", boxShadow: "0 0 8px #F59E0B" }}></span>
-                  {boutique?.nom ? `Maison ${boutique.nom}` : "Maison d'Élégance & Cosmétiques"}
-                </div>
-                <h1>{slide.title}</h1>
-                <p>{slide.subtitle}</p>
-                <button 
-                  className="bs-slide-btn" 
-                  onClick={(e) => { e.stopPropagation(); handleBannerClick(slide); }}
-                >
-                  {slide.buttonText || "Découvrir"} <ArrowRight size={16} />
-                </button>
+      {/* 1. HERO BANNER - VELLORIA SPLIT DESIGN */}
+      <div className="bs-hero-banner">
+        {/* Colonne Gauche : Texte, Titre, Bouton & Avantages */}
+        <div className="bs-hero-text-col">
+          <div key={activeSlide} className="bs-hero-text-animated">
+            <div className="bs-hero-collection-tag">
+              <span className="bs-hero-tag-dot"></span>
+              {slides[activeSlide]?.tag || (boutique?.nom ? boutique.nom.toUpperCase() : "NOUVELLE COLLECTION")}
+            </div>
+            <h1 className="bs-hero-title">
+              {slides[activeSlide]?.title}
+            </h1>
+            <p className="bs-hero-subtitle">
+              {slides[activeSlide]?.subtitle}
+            </p>
+            <div className="bs-hero-cta-wrap">
+              <button 
+                className="bs-hero-cta-btn" 
+                onClick={() => handleBannerClick(slides[activeSlide])}
+              >
+                <span>{slides[activeSlide]?.buttonText || "Découvrir la collection"}</span>
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          </div>
+
+          {/* Badges de Confiance sous le bouton (Velloria Style) */}
+          <div className="bs-hero-trust-row">
+            <div className="bs-hero-trust-item">
+              <div className="bs-hero-trust-icon">
+                <Truck size={16} />
+              </div>
+              <div className="bs-hero-trust-label">
+                <span className="bs-hero-trust-title">Livraison Rapide</span>
+                <span className="bs-hero-trust-sub">Dès 25 000 FCFA</span>
               </div>
             </div>
-          ))}
+            <div className="bs-hero-trust-item">
+              <div className="bs-hero-trust-icon">
+                <ShieldCheck size={16} />
+              </div>
+              <div className="bs-hero-trust-label">
+                <span className="bs-hero-trust-title">Paiement Sécurisé</span>
+                <span className="bs-hero-trust-sub">100% Garanti</span>
+              </div>
+            </div>
+            <div className="bs-hero-trust-item">
+              <div className="bs-hero-trust-icon">
+                <Sparkles size={16} />
+              </div>
+              <div className="bs-hero-trust-label">
+                <span className="bs-hero-trust-title">Produits Certifiés</span>
+                <span className="bs-hero-trust-sub">Qualité Premium</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {slides.length > 1 && (
-          <>
-            <button 
-              className="bs-slider-arrow left" 
-              onClick={(e) => { e.stopPropagation(); setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length); }}
-              aria-label="Diapositive précédente"
-            >
-              <ChevronLeft size={22} />
-            </button>
-            <button 
-              className="bs-slider-arrow right" 
-              onClick={(e) => { e.stopPropagation(); setActiveSlide((prev) => (prev + 1) % slides.length); }}
-              aria-label="Diapositive suivante"
-            >
-              <ChevronRight size={22} />
-            </button>
+        {/* Colonne Droite : Fenêtre Photo qui Défile */}
+        <div className="bs-hero-slider-window">
+          <div 
+            className="bs-hero-slider-track"
+            style={{
+              display: "flex",
+              width: `${slides.length * 100}%`,
+              height: "100%",
+              transform: `translateX(-${(activeSlide * 100) / slides.length}%)`,
+              transition: "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)"
+            }}
+          >
+            {slides.map((slide, idx) => (
+              <div 
+                key={slide.id || idx} 
+                className="bs-hero-slide-img-wrap"
+                style={{
+                  width: `${100 / slides.length}%`,
+                  height: "100%"
+                }}
+                onClick={() => handleBannerClick(slide)}
+              >
+                <img 
+                  src={slide.imageUrl} 
+                  alt={slide.title} 
+                  className="bs-hero-slide-img" 
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=80";
+                  }}
+                />
+              </div>
+            ))}
+          </div>
 
-            <div className="bs-slider-dots">
-              {slides.map((_, idx) => (
-                <div 
-                  key={idx} 
-                  className={`bs-slider-dot ${idx === activeSlide ? "active" : ""}`}
-                  onClick={(e) => { e.stopPropagation(); setActiveSlide(idx); }}
-                ></div>
-              ))}
-            </div>
-          </>
-        )}
+          {/* Badge Élégant Flottant sur la photo */}
+          <div className="bs-hero-floating-badge">
+            <span>{slides[activeSlide]?.editorial || "Style Lives Here"}</span>
+          </div>
+
+          {/* Boutons flèches de navigation circulaires (style Velloria) */}
+          {slides.length > 1 && (
+            <>
+              <button 
+                className="bs-hero-nav-btn prev" 
+                onClick={(e) => { e.stopPropagation(); setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length); }}
+                aria-label="Diapositive précédente"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                className="bs-hero-nav-btn next" 
+                onClick={(e) => { e.stopPropagation(); setActiveSlide((prev) => (prev + 1) % slides.length); }}
+                aria-label="Diapositive suivante"
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              {/* Points indicateurs de défilement en bas à droite */}
+              <div className="bs-hero-dots">
+                {slides.map((_, idx) => (
+                  <button 
+                    key={idx} 
+                    className={`bs-hero-dot ${idx === activeSlide ? "active" : ""}`}
+                    onClick={(e) => { e.stopPropagation(); setActiveSlide(idx); }}
+                    aria-label={`Aller au slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* 2. CATÉGORIES EN HAUT (TOUJOURS IMMÉDIATEMENT APRÈS LE BANNER) */}
