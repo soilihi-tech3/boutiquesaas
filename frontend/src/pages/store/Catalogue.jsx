@@ -140,7 +140,7 @@ export default function Catalogue() {
       }
     });
     return unsub;
-  }, [categoryId, famille, search, etat, marqueId, invalidate]);
+  }, [categoryId, famille, search, genre, marqueId, invalidate]);
 
   const stripAccents = (str) =>
     (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -149,8 +149,8 @@ export default function Catalogue() {
   if (onlyFavoris) {
     displayedProducts = displayedProducts.filter((p) => favIds.includes(p.id));
   }
-  if (etat) {
-    displayedProducts = displayedProducts.filter((p) => p.etat === etat);
+  if (genre) {
+    displayedProducts = displayedProducts.filter((p) => (p.genre || "femme").toLowerCase() === genre.toLowerCase());
   }
   if (marqueId) {
     displayedProducts = displayedProducts.filter((p) => String(p.marqueId) === String(marqueId));

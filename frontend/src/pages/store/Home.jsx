@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ArrowRight, Star, CheckCircle, MessageCircle, X, ZoomIn, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Star, CheckCircle, MessageCircle, X, ZoomIn } from "lucide-react";
 import api, { SLUG } from "../../api";
 import ProductCard from "../../components/ProductCard.jsx";
 import { subscribeRealtime } from "../../utils/realtime.js";
@@ -333,7 +333,7 @@ export default function Home() {
 
   return (
     <>
-      {/* ---- HERO SLIDER COSMÉTIQUE ---- */}
+      {/* 1. HERO SLIDER DYNAMIQUE */}
       <div className="bs-slider">
         <div 
           className="bs-slider-track"
@@ -401,9 +401,140 @@ export default function Home() {
         )}
       </div>
 
-      {/* ---- SECTION AVIS CLIENTS WHATSAPP CONTINUS (INFINITE LOOP) ---- */}
+      {/* 2. CATÉGORIES EN HAUT (TOUJOURS IMMÉDIATEMENT APRÈS LE BANNER) */}
+      <div className="bs-section-title">
+        <h2>Catégories Beauté & Accessoires</h2>
+      </div>
+      <div className="bs-cats">
+        {safeCategories.map((c) => (
+          <div 
+            key={c.id} 
+            className="bs-cat-card" 
+            onClick={() => navigate(`/catalogue?categoryId=${c.id}`)}
+          >
+            <img 
+              src={c.imageUrl || "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=300&q=80"} 
+              alt={c.nom} 
+              loading="lazy"
+              decoding="async"
+              className="bs-cat-img" 
+            />
+            <div className="bs-cat-name">{c.nom}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* 3. OFFRES & PROMOTIONS (EN SUITE) */}
+      {promos.length > 0 && (
+        <>
+          <div className="bs-section-title" style={{ marginTop: 36 }}>
+            <h2>Offres & Promotions</h2>
+          </div>
+          <div className="bs-grid">
+            {promos.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+        </>
+      )}
+
+      {/* 4. NOUVEAUX ARRIVAGES (PUIS) */}
+      {safeProducts.length > 0 && (() => {
+        const customNouveaux = safeProducts.filter(p => p.isNouveau || p.isNouveau === true || p.isNouveau === 1);
+        const displayNouveaux = customNouveaux.length > 0 
+          ? customNouveaux 
+          : [...safeProducts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 8);
+
+        return (
+          <CategoryScrollSection
+            category={{ id: "new", nom: "Nouveaux Arrivages" }}
+            products={displayNouveaux}
+            onNavigate={() => navigate("/catalogue")}
+          />
+        );
+      })()}
+
+      {/* 5. COLLECTIONS : SECTION FEMME, SECTION HOMME, SECTION MIXTE (APRÈS) */}
+      {femmeProducts.length > 0 && (
+        <CategoryScrollSection
+          category={{ id: "genre-femme", nom: "Collection Femme 👩" }}
+          products={femmeProducts}
+          badgeColor="#BE185D"
+          onNavigate={() => navigate("/catalogue?genre=femme")}
+        />
+      )}
+
+      {hommeProducts.length > 0 && (
+        <CategoryScrollSection
+          category={{ id: "genre-homme", nom: "Collection Homme 👨" }}
+          products={hommeProducts}
+          badgeColor="#1E3A8A"
+          onNavigate={() => navigate("/catalogue?genre=homme")}
+        />
+      )}
+
+      {mixteProducts.length > 0 && (
+        <CategoryScrollSection
+          category={{ id: "genre-mixte", nom: "Collection Mixte & Unisexe ✨" }}
+          products={mixteProducts}
+          badgeColor="#B45309"
+          onNavigate={() => navigate("/catalogue?genre=mixte")}
+        />
+      )}
+
+      {/* 6. SECTIONS PAR FAMILLE / CATÉGORIE (COSMÉTIQUE, CHEVEUX, BROCHES, MAQUILLAGE, ETC.) */}
+      {uniqueFamilles.map((famName) => {
+        const normTarget = famName.toLowerCase();
+        const famProds = safeProducts.filter(p => {
+          const pFam = getNormalizedFamilleName(p.Category?.famille || p.famille);
+          return pFam.toLowerCase() === normTarget;
+        });
+
+        if (famProds.length === 0) return null;
+
+        const sectionTitle = `Section ${famName}`;
+
+        return (
+          <CategoryScrollSection
+            key={normTarget}
+            category={{ id: `fam-${normTarget}`, nom: sectionTitle }}
+            products={famProds}
+            onNavigate={() => navigate(`/catalogue?famille=${encodeURIComponent(famName)}`)}
+          />
+        );
+      })}
+
+      {/* 7. BANNIÈRES SECONDAIRES */}
+      {sideBanners.length > 0 && (
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16,
+          marginTop: 36, marginBottom: 36
+        }}>
+          {sideBanners.map((sb, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleBannerClick(sb)}
+              style={{
+                borderRadius: 16, overflow: "hidden", position: "relative", height: 180,
+                cursor: "pointer", boxShadow: "0 4px 16px rgba(0,0,0,0.08)", transition: "transform 0.2s"
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-4px)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+            >
+              <img src={sb.imageUrl} alt={sb.title || "Banner"} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{
+                position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)",
+                padding: 16, display: "flex", flexDirection: "column", justifyContent: "flex-end"
+              }}>
+                {sb.title && <div style={{ color: "#fff", fontWeight: 800, fontSize: 16 }}>{sb.title}</div>}
+                {sb.subtitle && <div style={{ color: "rgba(255,255,255,0.85)", fontSize: 12, marginTop: 4 }}>{sb.subtitle}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 8. SECTION CE QUE DISENT NOS CLIENTS (TÉMOIGNAGES WHATSAPP EN FIN JUSTE AVANT LE FOOTER) */}
       {filteredTestimonials.length > 0 && (
-        <div style={{ marginTop: 44, marginBottom: 40, background: "var(--card)", padding: "26px 20px", borderRadius: 24, border: "1px solid var(--line)", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
+        <div style={{ marginTop: 48, marginBottom: 32, background: "var(--card)", padding: "28px 20px", borderRadius: 24, border: "1px solid var(--line)", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -626,139 +757,6 @@ export default function Home() {
           </div>
         </div>
       )}
-
-      {/* ---- CATÉGORIES VISUELLES DE BEAUTÉ ---- */}
-      <div className="bs-section-title">
-        <h2>Catégories Beauté & Accessoires</h2>
-      </div>
-      <div className="bs-cats">
-        {safeCategories.map((c) => (
-          <div 
-            key={c.id} 
-            className="bs-cat-card" 
-            onClick={() => navigate(`/catalogue?categoryId=${c.id}`)}
-          >
-            <img 
-              src={c.imageUrl || "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=300&q=80"} 
-              alt={c.nom} 
-              loading="lazy"
-              decoding="async"
-              className="bs-cat-img" 
-            />
-            <div className="bs-cat-name">{c.nom}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* ---- SECTION FEMME (SOINS, MAQUILLAGE, BROCHES, ACCESSOIRES) ---- */}
-      {femmeProducts.length > 0 && (
-        <CategoryScrollSection
-          category={{ id: "genre-femme", nom: "Collection Femme 👩" }}
-          products={femmeProducts}
-          badgeColor="#BE185D"
-          onNavigate={() => navigate("/catalogue?genre=femme")}
-        />
-      )}
-
-      {/* ---- SECTION HOMME (SOINS BARBE, PEIGNES, PARFUMS) ---- */}
-      {hommeProducts.length > 0 && (
-        <CategoryScrollSection
-          category={{ id: "genre-homme", nom: "Collection Homme 👨" }}
-          products={hommeProducts}
-          badgeColor="#1E3A8A"
-          onNavigate={() => navigate("/catalogue?genre=homme")}
-        />
-      )}
-
-      {/* ---- SECTION MIXTE (PEIGNES EN BOIS, SOINS UNIVERSELS) ---- */}
-      {mixteProducts.length > 0 && (
-        <CategoryScrollSection
-          category={{ id: "genre-mixte", nom: "Collection Mixte & Unisexe ✨" }}
-          products={mixteProducts}
-          badgeColor="#B45309"
-          onNavigate={() => navigate("/catalogue?genre=mixte")}
-        />
-      )}
-
-      {/* ---- PROMOTIONS & BONS PLANS ---- */}
-      {promos.length > 0 && (
-        <>
-          <div className="bs-section-title" style={{ marginTop: 36 }}>
-            <h2>Offres & Promotions</h2>
-          </div>
-          <div className="bs-grid">
-            {promos.map((p) => <ProductCard key={p.id} product={p} />)}
-          </div>
-        </>
-      )}
-
-      {/* ---- BANNIÈRES SECONDAIRES ---- */}
-      {sideBanners.length > 0 && (
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16,
-          marginTop: 36, marginBottom: 36
-        }}>
-          {sideBanners.map((sb, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleBannerClick(sb)}
-              style={{
-                borderRadius: 16, overflow: "hidden", position: "relative", height: 180,
-                cursor: "pointer", boxShadow: "0 4px 16px rgba(0,0,0,0.08)", transition: "transform 0.2s"
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-4px)"}
-              onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
-            >
-              <img src={sb.imageUrl} alt={sb.title || "Banner"} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{
-                position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)",
-                padding: 16, display: "flex", flexDirection: "column", justifyContent: "flex-end"
-              }}>
-                {sb.title && <div style={{ color: "#fff", fontWeight: 800, fontSize: 16 }}>{sb.title}</div>}
-                {sb.subtitle && <div style={{ color: "rgba(255,255,255,0.85)", fontSize: 12, marginTop: 4 }}>{sb.subtitle}</div>}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* ---- NOUVEAUX PRODUITS ---- */}
-      {safeProducts.length > 0 && (() => {
-        const customNouveaux = safeProducts.filter(p => p.isNouveau || p.isNouveau === true || p.isNouveau === 1);
-        const displayNouveaux = customNouveaux.length > 0 
-          ? customNouveaux 
-          : [...safeProducts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 8);
-
-        return (
-          <CategoryScrollSection
-            category={{ id: "new", nom: "Nouveaux Arrivages" }}
-            products={displayNouveaux}
-            onNavigate={() => navigate("/catalogue")}
-          />
-        );
-      })()}
-
-      {/* ---- SECTIONS SCROLLABLES PAR FAMILLE / CATÉGORIE CRÉÉES AUTOMATIQUEMENT ---- */}
-      {uniqueFamilles.map((famName) => {
-        const normTarget = famName.toLowerCase();
-        const famProds = safeProducts.filter(p => {
-          const pFam = getNormalizedFamilleName(p.Category?.famille || p.famille);
-          return pFam.toLowerCase() === normTarget;
-        });
-
-        if (famProds.length === 0) return null;
-
-        const sectionTitle = `Section ${famName}`;
-
-        return (
-          <CategoryScrollSection
-            key={normTarget}
-            category={{ id: `fam-${normTarget}`, nom: sectionTitle }}
-            products={famProds}
-            onNavigate={() => navigate(`/catalogue?famille=${encodeURIComponent(famName)}`)}
-          />
-        );
-      })}
     </>
   );
 }
