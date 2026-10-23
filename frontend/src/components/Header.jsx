@@ -139,72 +139,68 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
         <div style={{ maxWidth: 1520, margin: "0 auto", padding: "12px clamp(16px, 2.5vw, 36px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
 
           {/* LOGO & NOM D'ENTREPRISE : MAQUETTE LUXE & ÉLÉGANTE */}
-          <Link to="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", flexShrink: 0 }}>
+          <Link to="/" style={{ display: "flex", alignItems: "center", gap: 14, textDecoration: "none", flexShrink: 0 }}>
             {boutique?.logoUrl ? (
               <div style={{
-                height: 46, width: 46, borderRadius: 12, overflow: "hidden",
-                background: "#fff", border: "1.5px solid var(--line)",
-                boxShadow: "0 3px 12px rgba(0,0,0,0.06)", display: "flex",
-                alignItems: "center", justifyContent: "center", padding: 3, flexShrink: 0
+                height: 56, width: 56, borderRadius: 16, overflow: "hidden",
+                background: "#fff", border: "2px solid rgba(190, 24, 93, 0.22)",
+                boxShadow: "0 4px 16px rgba(190, 24, 93, 0.12)", display: "flex",
+                alignItems: "center", justifyContent: "center", padding: 4, flexShrink: 0,
+                transition: "transform 0.2s ease, box-shadow 0.2s ease"
               }}>
                 <img src={boutique.logoUrl} alt={boutique.nom} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
               </div>
             ) : (
               <div style={{
-                width: 46, height: 46, borderRadius: 12,
-                background: "linear-gradient(135deg, var(--forest-dark, #064E3B), var(--forest, #BE185D))",
+                width: 56, height: 56, borderRadius: 16,
+                background: "linear-gradient(135deg, var(--forest-dark, #831843), var(--forest, #BE185D))",
                 display: "flex", alignItems: "center", justifyContent: "center", color: "#fff",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                boxShadow: "0 6px 18px rgba(190, 24, 93, 0.25)", flexShrink: 0
               }}>
-                <Store size={22} color="#fff" />
+                <Store size={26} color="#fff" />
               </div>
             )}
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span style={{
-                fontSize: 20, fontWeight: 900, color: "var(--forest-dark)", letterSpacing: "0.5px",
+                fontSize: 22, fontWeight: 900, color: "var(--forest-dark)", letterSpacing: "0.6px",
                 textTransform: "uppercase", lineHeight: 1.15
               }}>
                 {boutique?.nom || "Élégance & Cosmétiques"}
               </span>
               <span style={{
-                fontSize: 10.5, fontWeight: 700, color: "var(--sage, #059669)", textTransform: "uppercase",
-                letterSpacing: "1.6px", marginTop: 2, display: "flex", alignItems: "center", gap: 5
+                fontSize: 11, fontWeight: 800, color: "var(--forest, #BE185D)", textTransform: "uppercase",
+                letterSpacing: "1.8px", marginTop: 3, display: "flex", alignItems: "center", gap: 6
               }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981", display: "inline-block", boxShadow: "0 0 6px #10B981" }}></span>
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981", display: "inline-block", boxShadow: "0 0 8px #10B981" }}></span>
                 Boutique Officielle
               </span>
             </div>
           </Link>
 
-          {/* MAIN NAV LINKS (MOVED TO ROW 2) */}
-
-          {/* RIGHT SIDE: SEARCH + ACTIONS */}
-          <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1, justifyContent: "flex-end", paddingLeft: 32 }}>
-            
-            {/* VISIBLE & PROMINENT SEARCH INPUT (DESKTOP) */}
-            <div ref={searchRef} className="bs-header-search" style={{ 
-                flex: 1, maxWidth: 680, minWidth: 200, margin: "0 auto", height: 42, position: "relative", zIndex: 100,
-                transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2)"
-            }}>
+          {/* VISIBLE & PROMINENT SEARCH INPUT (DESKTOP) - MAXIMUM LONGUEUR BIEN CADRÉE */}
+          <div ref={searchRef} className="bs-header-search" style={{ 
+              flex: 1, maxWidth: 860, margin: "0 24px", height: 48, position: "relative", zIndex: 100,
+              transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2)"
+          }}>
             {/* Overlay background when search is focused */}
             <div style={{
-              position: "fixed", inset: 0, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)",
+              position: "fixed", inset: 0, background: "rgba(0,0,0,0.25)", backdropFilter: "blur(3px)",
               opacity: isSearchFocused ? 1 : 0, pointerEvents: isSearchFocused ? "auto" : "none",
-              transition: "opacity 0.3s ease", zIndex: -1
+              transition: "opacity 0.25s ease", zIndex: -1
             }} onClick={() => setIsSearchFocused(false)}></div>
 
             <form onSubmit={onSearch} style={{
-              display: "flex", alignItems: "center", background: "var(--paper)",
+              display: "flex", alignItems: "center", background: isSearchFocused ? "#ffffff" : "var(--paper)",
               border: isSearchFocused ? "2px solid var(--forest)" : "1.5px solid var(--line)", 
-              borderRadius: 24, padding: isSearchFocused ? "8px 16px" : "8px 12px",
+              borderRadius: 30, padding: "0 18px",
               position: "absolute", left: 0, top: 0, bottom: 0, right: 0,
-              boxShadow: isSearchFocused ? "0 12px 40px rgba(0,0,0,0.12)" : "none",
-              transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2)",
+              boxShadow: isSearchFocused ? "0 10px 36px rgba(190, 24, 93, 0.16)" : "0 2px 8px rgba(0,0,0,0.03)",
+              transition: "all 0.25s ease",
               zIndex: 20
             }}>
-              <Search size={16} color={isSearchFocused ? "var(--forest)" : "var(--muted)"} style={{ marginRight: isSearchFocused ? 6 : 4, flexShrink: 0, transition: "color 0.2s" }} />
+              <Search size={18} color={isSearchFocused ? "var(--forest)" : "var(--muted)"} style={{ marginRight: 10, flexShrink: 0, transition: "color 0.2s" }} />
               <input
-                placeholder={isSearchFocused ? "Rechercher un produit..." : "Recherche"}
+                placeholder={isSearchFocused ? "Tapez un nom, soin visage, peigne, parfum, broche..." : "Rechercher un soin, parfum, maquillage, peigne, broche..."}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => { 
@@ -217,68 +213,79 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
                 autoComplete="off"
                 style={{
                   border: "none", background: "transparent", outline: "none",
-                  width: "100%", fontSize: isSearchFocused ? 14 : 12.5, color: "var(--ink)", fontWeight: 500
+                  width: "100%", fontSize: 14.5, color: "var(--ink)", fontWeight: 500
                 }}
               />
               {query && (
                 <button type="button" onClick={clearSearch} style={{
-                  background: "none", border: "none", cursor: "pointer", color: "var(--muted)",
-                  display: "flex", alignItems: "center", padding: 0, marginLeft: 4
+                  background: "var(--line)", border: "none", borderRadius: "50%", width: 22, height: 22,
+                  cursor: "pointer", color: "var(--ink)", display: "flex", alignItems: "center", justifyContent: "center",
+                  padding: 0, marginLeft: 6
                 }}>
-                  <X size={15} />
+                  <X size={14} />
                 </button>
               )}
             </form>
 
-            {/* LIVE SEARCH DROPDOWN */}
+            {/* LIVE SEARCH DROPDOWN PLEINE LARGEUR */}
             {showDropdown && isSearchFocused && (
               <div style={{
-                position: "absolute", top: "calc(100% + 12px)", right: 0, width: 480,
-                background: "#fff", borderRadius: 16, border: "1px solid var(--line)",
-                boxShadow: "0 16px 50px rgba(0,0,0,0.15)", zIndex: 3000, overflow: "hidden",
+                position: "absolute", top: "calc(100% + 10px)", left: 0, width: "100%",
+                background: "#ffffff", borderRadius: 18, border: "1.5px solid var(--line)",
+                boxShadow: "0 18px 50px rgba(0,0,0,0.18)", zIndex: 3000, overflow: "hidden",
                 animation: "popIn 0.2s ease-out"
               }}>
                 {results.length === 0 ? (
-                  <div style={{ padding: "16px 18px", fontSize: 13, color: "var(--muted)", textAlign: "center" }}>
-                    Aucun produit trouvé pour « {query} »
+                  <div style={{ padding: "20px 24px", fontSize: 14, color: "var(--muted)", textAlign: "center" }}>
+                    Aucun produit trouvé pour « <strong>{query}</strong> »
                   </div>
                 ) : (
                   <>
+                    <div style={{ padding: "10px 18px 6px", fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "var(--muted)", borderBottom: "1px solid var(--line)" }}>
+                      Résultats suggérés ({results.length})
+                    </div>
                     {results.map(p => (
                       <div key={p.id} onMouseDown={() => goToProduct(p.id)} style={{
-                        display: "flex", alignItems: "center", gap: 12, padding: "10px 14px",
+                        display: "flex", alignItems: "center", gap: 14, padding: "12px 18px",
                         cursor: "pointer", borderBottom: "1px solid var(--line)", transition: "background 0.15s"
                       }}
                         onMouseEnter={e => e.currentTarget.style.background = "var(--paper)"}
                         onMouseLeave={e => e.currentTarget.style.background = "#fff"}
                       >
                         <img
-                          src={p.imageUrl || "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=60&q=80"}
+                          src={p.imageUrl || "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=80&q=80"}
                           alt={p.nom}
-                          style={{ width: 40, height: 40, borderRadius: 8, objectFit: "cover", flexShrink: 0, border: "1px solid var(--line)" }}
+                          style={{ width: 46, height: 46, borderRadius: 10, objectFit: "cover", flexShrink: 0, border: "1px solid var(--line)" }}
                         />
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontWeight: 600, fontSize: 13, color: "var(--ink)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                             {p.nom}
                           </div>
-                          <div style={{ fontSize: 12, color: "var(--muted)" }}>{p.Category?.nom}</div>
+                          <div style={{ fontSize: 12.5, color: "var(--muted)", display: "flex", alignItems: "center", gap: 8, marginTop: 2 }}>
+                            <span>{p.Category?.nom || "Beauté"}</span>
+                            {p.genre && (
+                              <span style={{ fontSize: 10.5, fontWeight: 700, textTransform: "uppercase", padding: "1px 6px", borderRadius: 6, background: "var(--paper)", border: "1px solid var(--line)" }}>
+                                {p.genre}
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        <div style={{ fontWeight: 700, fontSize: 13, color: "var(--forest-dark)", flexShrink: 0 }}>
+                        <div style={{ fontWeight: 800, fontSize: 14.5, color: "var(--forest-dark)", flexShrink: 0 }}>
                           {fcfa(p.prixPromo || p.prix)}
                         </div>
                       </div>
                     ))}
                     <div
                       onMouseDown={() => { setShowDropdown(false); navigate(`/catalogue?search=${encodeURIComponent(query.trim())}`); }}
-                      style={{ padding: "10px 14px", textAlign: "center", fontSize: 13, color: "var(--forest)", fontWeight: 700, cursor: "pointer", background: "var(--forest-light)" }}
+                      style={{ padding: "12px 18px", textAlign: "center", fontSize: 13.5, color: "var(--forest)", fontWeight: 800, cursor: "pointer", background: "var(--forest-light)", transition: "background 0.15s" }}
                     >
-                      Voir tous les résultats pour « {query} »
+                      Voir tous les résultats pour « {query} » →
                     </div>
                   </>
                 )}
               </div>
             )}
-            </div>
+          </div>
 
             {/* ACTIONS (CONNEXION & PANIER PINNED FAR RIGHT) */}
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
@@ -406,29 +413,32 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
               title={theme === "dark" ? "Passer en mode clair" : "Passer en mode sombre"}
               style={{
                 background: "var(--paper)",
-                border: "1px solid var(--line)",
+                border: "1.5px solid var(--line)",
                 borderRadius: "50%",
-                width: 38,
-                height: 38,
+                width: 42,
+                height: 42,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
                 color: "var(--forest-dark)",
-                transition: "all 0.2s ease"
+                transition: "all 0.2s ease",
+                flexShrink: 0
               }}
             >
-              {theme === "dark" ? <Sun size={18} color="#F59E0B" /> : <Moon size={18} color="var(--forest-dark)" />}
+              {theme === "dark" ? <Sun size={19} color="#F59E0B" /> : <Moon size={19} color="var(--forest-dark)" />}
             </button>
 
-            <button className="bs-cart-btn" onClick={() => setCartOpen(true)}>
-              <ShoppingCart size={16} />
+            <button className="bs-cart-btn" onClick={() => setCartOpen(true)} style={{
+              display: "flex", alignItems: "center", gap: 10, padding: "10px 22px", borderRadius: 28,
+              fontSize: 14.5, fontWeight: 800, flexShrink: 0
+            }}>
+              <ShoppingCart size={18} />
               <span>Panier</span>
               {count > 0 && <span className="bs-badge">{count}</span>}
             </button>
           </div>
         </div>
-      </div>
 
         {/* ROW 1.5: MOBILE SEARCH BAR (VISIBLE ONLY ON MOBILE/TABLET) */}
         <div className="bs-mobile-search-bar">
@@ -527,38 +537,176 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
           </div>
         </div>
 
-        {/* ROW 2: DESKTOP NAVIGATION BAR */}
+        {/* ROW 2: DESKTOP NAVIGATION BAR (BOUTONS MAQUETTE HAUT DE GAMME) */}
         <div className="bs-desktop-nav" style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)" }}>
-          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", gap: 32, alignItems: "center" }}>
-            <Link to="/" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname === "/" ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-              <Home size={16} /> Accueil
-            </Link>
-            <Link to="/a-propos" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname === "/a-propos" ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-              <Info size={16} /> À propos
+          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+            
+            {/* ACCUEIL */}
+            <Link
+              to="/"
+              style={{
+                fontSize: 15, fontWeight: 700, textDecoration: "none",
+                display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                background: location.pathname === "/" ? "var(--forest-light)" : "transparent",
+                color: location.pathname === "/" ? "var(--forest)" : "var(--ink)",
+                border: location.pathname === "/" ? "1.5px solid var(--forest)" : "1.5px solid transparent",
+                boxShadow: location.pathname === "/" ? "0 2px 10px rgba(190, 24, 93, 0.12)" : "none"
+              }}
+              onMouseEnter={(e) => {
+                if (location.pathname !== "/") {
+                  e.currentTarget.style.background = "var(--paper)";
+                  e.currentTarget.style.borderColor = "var(--line)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (location.pathname !== "/") {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                }
+              }}
+            >
+              <Home size={18} /> <span>Accueil</span>
             </Link>
 
-            <Link to="/catalogue" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname === "/catalogue" && !location.search.includes("favoris=1") ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-              <Grid size={16} /> Catalogue
+            {/* A PROPOS */}
+            <Link
+              to="/a-propos"
+              style={{
+                fontSize: 15, fontWeight: 700, textDecoration: "none",
+                display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                background: location.pathname === "/a-propos" ? "var(--forest-light)" : "transparent",
+                color: location.pathname === "/a-propos" ? "var(--forest)" : "var(--ink)",
+                border: location.pathname === "/a-propos" ? "1.5px solid var(--forest)" : "1.5px solid transparent",
+                boxShadow: location.pathname === "/a-propos" ? "0 2px 10px rgba(190, 24, 93, 0.12)" : "none"
+              }}
+              onMouseEnter={(e) => {
+                if (location.pathname !== "/a-propos") {
+                  e.currentTarget.style.background = "var(--paper)";
+                  e.currentTarget.style.borderColor = "var(--line)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (location.pathname !== "/a-propos") {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                }
+              }}
+            >
+              <Info size={18} /> <span>À propos</span>
             </Link>
-            <Link to="/catalogue?favoris=1" style={{ fontSize: 14.5, fontWeight: 700, color: location.search.includes("favoris=1") ? "#B4483A" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-              <Heart size={16} color="#B4483A" fill={location.search.includes("favoris=1") ? "#B4483A" : "none"} /> Favoris
+
+            {/* CATALOGUE */}
+            <Link
+              to="/catalogue"
+              style={{
+                fontSize: 15, fontWeight: 700, textDecoration: "none",
+                display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                background: location.pathname === "/catalogue" && !location.search.includes("favoris=1") ? "var(--forest-light)" : "transparent",
+                color: location.pathname === "/catalogue" && !location.search.includes("favoris=1") ? "var(--forest)" : "var(--ink)",
+                border: location.pathname === "/catalogue" && !location.search.includes("favoris=1") ? "1.5px solid var(--forest)" : "1.5px solid transparent",
+                boxShadow: location.pathname === "/catalogue" && !location.search.includes("favoris=1") ? "0 2px 10px rgba(190, 24, 93, 0.12)" : "none"
+              }}
+              onMouseEnter={(e) => {
+                if (location.pathname !== "/catalogue" || location.search.includes("favoris=1")) {
+                  e.currentTarget.style.background = "var(--paper)";
+                  e.currentTarget.style.borderColor = "var(--line)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (location.pathname !== "/catalogue" || location.search.includes("favoris=1")) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                }
+              }}
+            >
+              <Grid size={18} /> <span>Catalogue</span>
             </Link>
+
+            {/* FAVORIS */}
+            <Link
+              to="/catalogue?favoris=1"
+              style={{
+                fontSize: 15, fontWeight: 700, textDecoration: "none",
+                display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                background: location.search.includes("favoris=1") ? "#FDF2F0" : "transparent",
+                color: location.search.includes("favoris=1") ? "#B4483A" : "var(--ink)",
+                border: location.search.includes("favoris=1") ? "1.5px solid #B4483A" : "1.5px solid transparent",
+                boxShadow: location.search.includes("favoris=1") ? "0 2px 10px rgba(180, 72, 58, 0.12)" : "none"
+              }}
+              onMouseEnter={(e) => {
+                if (!location.search.includes("favoris=1")) {
+                  e.currentTarget.style.background = "#FDF2F0";
+                  e.currentTarget.style.borderColor = "rgba(180, 72, 58, 0.2)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!location.search.includes("favoris=1")) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                }
+              }}
+            >
+              <Heart size={18} color="#B4483A" fill={location.search.includes("favoris=1") ? "#B4483A" : "none"} /> 
+              <span>Favoris</span>
+            </Link>
+
+            {/* RECHARGE CREDIT */}
             {boutique?.modulesActifs?.rechargeCredit !== false && (
-              <Link to="/recharge-credit" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname.includes("recharge") ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-                <Zap size={16} color="#0284C7" fill="#0284C7" /> Recharge Crédit
-                <span style={{ fontSize: 10, background: "#0284C7", color: "#fff", padding: "1px 6px", borderRadius: 8, fontWeight: 800 }}>Direct</span>
+              <Link
+                to="/recharge-credit"
+                style={{
+                  fontSize: 15, fontWeight: 700, textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                  padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                  background: location.pathname.includes("recharge") ? "#EFF6FF" : "transparent",
+                  color: location.pathname.includes("recharge") ? "#0284C7" : "var(--ink)",
+                  border: location.pathname.includes("recharge") ? "1.5px solid #0284C7" : "1.5px solid transparent",
+                  boxShadow: location.pathname.includes("recharge") ? "0 2px 10px rgba(2, 132, 199, 0.12)" : "none"
+                }}
+                onMouseEnter={(e) => {
+                  if (!location.pathname.includes("recharge")) {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "rgba(2, 132, 199, 0.2)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!location.pathname.includes("recharge")) {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.borderColor = "transparent";
+                  }
+                }}
+              >
+                <Zap size={18} color="#0284C7" fill="#0284C7" /> 
+                <span>Recharge Crédit</span>
+                <span style={{ fontSize: 10.5, background: "#0284C7", color: "#fff", padding: "2px 7px", borderRadius: 10, fontWeight: 800 }}>Direct</span>
               </Link>
             )}
+
+            {/* MES COMMANDES */}
             {user?.role === "client" && (
-              <Link to="/mes-commandes" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname === "/mes-commandes" ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
-                <Package size={16} /> Mes commandes
+              <Link
+                to="/mes-commandes"
+                style={{
+                  fontSize: 15, fontWeight: 700, textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
+                  padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
+                  background: location.pathname === "/mes-commandes" ? "var(--forest-light)" : "transparent",
+                  color: location.pathname === "/mes-commandes" ? "var(--forest)" : "var(--ink)",
+                  border: location.pathname === "/mes-commandes" ? "1.5px solid var(--forest)" : "1.5px solid transparent"
+                }}
+              >
+                <Package size={18} /> <span>Mes commandes</span>
               </Link>
             )}
           </div>
         </div>
 
         {/* ROW 3: SECONDARY CATEGORIES BAR & GALLERY */}
-        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "8px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", overflow: "hidden" }}>
+        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", overflow: "hidden" }}>
           <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box" }}>
 
             {/* DROPDOWN BUTTON FOR ALL CATEGORIES */}
@@ -566,25 +714,26 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
               <button
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 style={{
-                  background: "var(--forest)", color: "#fff",
-                  border: "none", borderRadius: 20, padding: "8px 18px",
-                  fontWeight: 800, fontSize: 13, cursor: "pointer",
-                  display: "flex", alignItems: "center", gap: 8,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)"
+                  background: "linear-gradient(135deg, var(--forest-dark, #831843), var(--forest, #BE185D))",
+                  color: "#fff", border: "none", borderRadius: 26, padding: "10px 22px",
+                  fontWeight: 800, fontSize: 14, cursor: "pointer",
+                  display: "flex", alignItems: "center", gap: 10,
+                  boxShadow: "0 4px 14px rgba(190, 24, 93, 0.25)",
+                  transition: "transform 0.15s ease, box-shadow 0.15s ease"
                 }}
               >
-                <Menu size={16} /> Toutes les catégories <ChevronDown size={14} />
+                <Menu size={18} /> <span>Toutes les catégories</span> <ChevronDown size={15} />
               </button>
 
               {categoriesOpen && (
                 <div style={{
                   position: "absolute", top: "calc(100% + 8px)", left: 0,
-                  width: 250, background: "var(--card)", borderRadius: 14,
-                  border: "1px solid var(--line)", boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-                  zIndex: 3000, overflow: "hidden", padding: "6px 0"
+                  width: 270, background: "var(--card)", borderRadius: 16,
+                  border: "1.5px solid var(--line)", boxShadow: "0 12px 36px rgba(0,0,0,0.2)",
+                  zIndex: 3000, overflow: "hidden", padding: "8px 0"
                 }}>
                   {categories.length === 0 ? (
-                    <div style={{ padding: "12px 16px", fontSize: 12.5, color: "var(--muted)" }}>Aucune catégorie</div>
+                    <div style={{ padding: "14px 18px", fontSize: 13, color: "var(--muted)" }}>Aucune catégorie</div>
                   ) : (
                     categories.map(cat => (
                       <div
@@ -594,17 +743,17 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
                           navigate(`/catalogue?categoryId=${cat.id}`);
                         }}
                         style={{
-                          padding: "10px 16px", fontSize: 13, fontWeight: 600,
+                          padding: "11px 18px", fontSize: 13.5, fontWeight: 700,
                           color: "var(--ink)", cursor: "pointer", display: "flex",
-                          alignItems: "center", gap: 10, transition: "background 0.15s"
+                          alignItems: "center", gap: 12, transition: "background 0.15s"
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.background = "var(--paper)"}
                         onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                       >
                         {cat.imageUrl ? (
-                          <img src={cat.imageUrl} alt={cat.nom} style={{ width: 24, height: 24, borderRadius: "50%", objectFit: "cover" }} />
+                          <img src={cat.imageUrl} alt={cat.nom} style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover", border: "1px solid var(--line)" }} />
                         ) : (
-                          <Grid size={16} color="var(--forest)" />
+                          <Grid size={18} color="var(--forest)" />
                         )}
                         <span>{cat.nom}</span>
                       </div>
@@ -615,23 +764,23 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
             </div>
 
             {/* HORIZONTAL GALLERY / PILL LIST OF CATEGORIES */}
-            <div style={{ display: "flex", gap: 8, overflowX: "auto", scrollbarWidth: "none", msOverflowStyle: "none", padding: "4px 0", flex: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", gap: 10, overflowX: "auto", scrollbarWidth: "none", msOverflowStyle: "none", padding: "4px 0", flex: 1, minWidth: 0 }}>
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => navigate(`/catalogue?categoryId=${cat.id}`)}
                   style={{
                     background: "var(--card)", border: "1px solid var(--line)",
-                    borderRadius: 20, padding: "5px 14px", fontSize: 12.5,
-                    fontWeight: 600, color: "var(--ink)", cursor: "pointer",
+                    borderRadius: 22, padding: "7px 18px", fontSize: 13,
+                    fontWeight: 700, color: "var(--ink)", cursor: "pointer",
                     whiteSpace: "nowrap", display: "inline-flex", alignItems: "center",
-                    gap: 6, transition: "all 0.15s"
+                    gap: 8, transition: "all 0.15s ease", boxShadow: "0 1px 4px rgba(0,0,0,0.03)"
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = "var(--forest-light)"; e.currentTarget.style.borderColor = "var(--forest)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.background = "var(--card)"; e.currentTarget.style.borderColor = "var(--line)"; }}
                 >
                   {cat.imageUrl && (
-                    <img src={cat.imageUrl} alt={cat.nom} style={{ width: 18, height: 18, borderRadius: "50%", objectFit: "cover" }} />
+                    <img src={cat.imageUrl} alt={cat.nom} style={{ width: 22, height: 22, borderRadius: "50%", objectFit: "cover" }} />
                   )}
                   <span>{cat.nom}</span>
                 </button>

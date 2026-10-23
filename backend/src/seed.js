@@ -123,13 +123,27 @@ async function runSeed() {
     if (u.email === "client@example.com") clientUser = usr;
   }
 
-  // --- 5. Catégories Cosmétiques & Beauté ---
+  // --- 5. Catégories & Familles Cosmétiques & Beauté ---
+  const familleList = [
+    { nom: "Cosmétique", boutiqueId: boutique.id },
+    { nom: "Cheveux, Peignes & Brosses", boutiqueId: boutique.id },
+    { nom: "Broches & Accessoires Bijoux", boutiqueId: boutique.id },
+    { nom: "Parfums & Fragrances", boutiqueId: boutique.id },
+    { nom: "Maquillage & Teint", boutiqueId: boutique.id }
+  ];
+  for (const fam of familleList) {
+    await Famille.findOrCreate({
+      where: { nom: fam.nom, boutiqueId: boutique.id },
+      defaults: fam
+    });
+  }
+
   const catList = [
     { nom: "Soins Visage & Corps", famille: "Cosmétique", imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=400&q=80" },
-    { nom: "Cheveux, Peignes & Brosses", famille: "Cheveux & Accessoires", imageUrl: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" },
-    { nom: "Broches & Accessoires Bijoux", famille: "Broches & Bijoux", imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80" },
-    { nom: "Parfums & Fragrances", famille: "Parfumerie", imageUrl: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=400&q=80" },
-    { nom: "Maquillage & Teint", famille: "Maquillage", imageUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=400&q=80" },
+    { nom: "Cheveux, Peignes & Brosses", famille: "Cheveux, Peignes & Brosses", imageUrl: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" },
+    { nom: "Broches & Accessoires Bijoux", famille: "Broches & Accessoires Bijoux", imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80" },
+    { nom: "Parfums & Fragrances", famille: "Parfums & Fragrances", imageUrl: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=400&q=80" },
+    { nom: "Maquillage & Teint", famille: "Maquillage & Teint", imageUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=400&q=80" },
   ];
 
   const cats = {};

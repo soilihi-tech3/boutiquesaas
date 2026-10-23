@@ -228,9 +228,11 @@ router.get("/familles", async (req, res, next) => {
     const list = await Famille.findAll({ where: { boutiqueId: req.boutiqueId } });
     if (list.length === 0) {
       const defaults = [
-        { nom: "Alimentation", boutiqueId: req.boutiqueId },
         { nom: "Cosmétique", boutiqueId: req.boutiqueId },
-        { nom: "Maison & Entretien", boutiqueId: req.boutiqueId }
+        { nom: "Cheveux, Peignes & Brosses", boutiqueId: req.boutiqueId },
+        { nom: "Broches & Accessoires Bijoux", boutiqueId: req.boutiqueId },
+        { nom: "Parfums & Fragrances", boutiqueId: req.boutiqueId },
+        { nom: "Maquillage & Teint", boutiqueId: req.boutiqueId }
       ];
       await Famille.bulkCreate(defaults);
       return res.json(await Famille.findAll({ where: { boutiqueId: req.boutiqueId } }));

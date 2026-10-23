@@ -103,9 +103,11 @@ router.get("/:slug/familles", loadBoutique, cacheMiddleware(600), async (req, re
     const list = await Famille.findAll({ where: { boutiqueId: req.boutique.id } });
     if (list.length === 0) {
       const defaults = [
-        { nom: "Alimentation", boutiqueId: req.boutique.id },
         { nom: "Cosmétique", boutiqueId: req.boutique.id },
-        { nom: "Maison & Entretien", boutiqueId: req.boutique.id }
+        { nom: "Cheveux, Peignes & Brosses", boutiqueId: req.boutique.id },
+        { nom: "Broches & Accessoires Bijoux", boutiqueId: req.boutique.id },
+        { nom: "Parfums & Fragrances", boutiqueId: req.boutique.id },
+        { nom: "Maquillage & Teint", boutiqueId: req.boutique.id }
       ];
       await Famille.bulkCreate(defaults);
       return res.json(await Famille.findAll({ where: { boutiqueId: req.boutique.id } }));

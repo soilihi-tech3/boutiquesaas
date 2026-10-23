@@ -19,7 +19,7 @@ export default function AdminCategories() {
 
   const initialCategoryForm = {
     nom: "",
-    famille: "Électronique",
+    famille: "",
     imageUrl: ""
   };
   const [categoryForm, setCategoryForm] = useState(initialCategoryForm);
@@ -48,9 +48,10 @@ export default function AdminCategories() {
       api.get("/admin/familles")
     ]).then(([resCats, resFams]) => {
       setCategories(resCats.data || []);
-      setFamilles(resFams.data || []);
-      if (resFams.data && resFams.data.length > 0 && !categoryForm.famille) {
-        setCategoryForm(f => ({ ...f, famille: resFams.data[0].nom }));
+      const fams = resFams.data || [];
+      setFamilles(fams);
+      if (fams.length > 0) {
+        setCategoryForm(f => ({ ...f, famille: f.famille || fams[0].nom }));
       }
     }).finally(() => setLoading(false));
   }
@@ -78,7 +79,7 @@ export default function AdminCategories() {
     setEditingId(cat.id);
     setCategoryForm({
       nom: cat.nom || "",
-      famille: cat.famille || "Alimentation",
+      famille: cat.famille || (familles[0]?.nom || "Cosmétique"),
       imageUrl: cat.imageUrl || ""
     });
     setActiveTab("ajout");
@@ -86,7 +87,10 @@ export default function AdminCategories() {
 
   function cancelEditCategory() {
     setEditingId(null);
-    setCategoryForm(initialCategoryForm);
+    setCategoryForm({
+      ...initialCategoryForm,
+      famille: familles[0]?.nom || "Cosmétique"
+    });
     setActiveTab("liste");
   }
 
@@ -330,7 +334,7 @@ export default function AdminCategories() {
                   <td style={{ fontWeight: 700, color: "var(--ink)" }}>{c.nom}</td>
                   <td>
                     <span style={{ background: "var(--forest-light)", color: "var(--forest-dark)", padding: "4px 12px", borderRadius: 20, fontSize: 12, fontWeight: 700, border: "1px solid var(--line)" }}>
-                      {c.famille || "Alimentation"}
+                      {c.famille || "Cosmétique"}
                     </span>
                   </td>
                   <td>
@@ -365,7 +369,7 @@ export default function AdminCategories() {
               <input
                 className="bs-input"
                 required
-                placeholder="ex: Légumes Bio"
+                placeholder="ex: Soins Visage & Corps, Cheveux, Broches..."
                 value={categoryForm.nom}
                 onChange={(e) => setCategoryForm(f => ({ ...f, nom: e.target.value }))}
               />
@@ -449,7 +453,7 @@ export default function AdminCategories() {
                 <input
                   className="bs-input"
                   required
-                  placeholder="ex: Alimentation, Cosmétique, Électronique..."
+                  placeholder="ex: Cosmétique, Parfumerie, Peignes & Brosses, Bijoux..."
                   value={familleForm.nom}
                   onChange={(e) => setFamilleForm(f => ({ ...f, nom: e.target.value }))}
                 />
@@ -459,7 +463,7 @@ export default function AdminCategories() {
                 <label>Description (optionnel)</label>
                 <input
                   className="bs-input"
-                  placeholder="ex: Tous les produits d'alimentation bio"
+                  placeholder="ex: Soins capillaires, crèmes et accessoires de coiffure"
                   value={familleForm.description}
                   onChange={(e) => setFamilleForm(f => ({ ...f, description: e.target.value }))}
                 />

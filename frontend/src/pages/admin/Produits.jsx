@@ -527,7 +527,7 @@ export default function AdminProduits() {
               <input
                 className="bs-input"
                 required
-                placeholder="ex: Disjoncteur Différentiel 32A, Climatiseur Inverter..."
+                placeholder="ex: Sérum Hydratant Acide Hyaluronique, Huile Capillaire Éixir, Broche Bijou Dorée..."
                 value={form.nom}
                 onChange={(e) => set("nom", e.target.value)}
               />
@@ -536,15 +536,18 @@ export default function AdminProduits() {
             <div className="bs-form-row-2" style={{ marginBottom: 4 }}>
               {/* CIBLE / COLLECTION (FEMME / HOMME / MIXTE) */}
               <div className="bs-input-group">
-                <label style={{ fontWeight: 700 }}>Collection / Cible *</label>
+                <label style={{ fontWeight: 800, color: "var(--forest-dark)", display: "flex", alignItems: "center", gap: 6 }}>
+                  Collection / Cible (Genre) *
+                </label>
                 <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                   <label style={{
-                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                    padding: "10px 10px", borderRadius: 10, cursor: "pointer",
+                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    padding: "11px 12px", borderRadius: 12, cursor: "pointer",
                     border: form.genre === "femme" ? "2px solid #BE185D" : "1.5px solid var(--line)",
                     background: form.genre === "femme" ? "#FDF2F8" : "var(--card)",
                     color: form.genre === "femme" ? "#9D174D" : "var(--ink)",
-                    fontWeight: 800, fontSize: 13, transition: "all 0.2s"
+                    fontWeight: 800, fontSize: 13.5, transition: "all 0.2s",
+                    boxShadow: form.genre === "femme" ? "0 4px 12px rgba(190, 24, 93, 0.15)" : "none"
                   }}>
                     <input 
                       type="radio" 
@@ -554,16 +557,17 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "femme")} 
                       style={{ display: "none" }}
                     />
-                    Femme
+                    <span>Femme</span>
                   </label>
 
                   <label style={{
-                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                    padding: "10px 10px", borderRadius: 10, cursor: "pointer",
+                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    padding: "11px 12px", borderRadius: 12, cursor: "pointer",
                     border: form.genre === "homme" ? "2px solid #1E3A8A" : "1.5px solid var(--line)",
                     background: form.genre === "homme" ? "#EFF6FF" : "var(--card)",
                     color: form.genre === "homme" ? "#1E40AF" : "var(--ink)",
-                    fontWeight: 800, fontSize: 13, transition: "all 0.2s"
+                    fontWeight: 800, fontSize: 13.5, transition: "all 0.2s",
+                    boxShadow: form.genre === "homme" ? "0 4px 12px rgba(30, 58, 138, 0.15)" : "none"
                   }}>
                     <input 
                       type="radio" 
@@ -573,16 +577,17 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "homme")} 
                       style={{ display: "none" }}
                     />
-                    Homme
+                    <span>Homme</span>
                   </label>
 
                   <label style={{
-                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                    padding: "10px 10px", borderRadius: 10, cursor: "pointer",
+                    flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    padding: "11px 12px", borderRadius: 12, cursor: "pointer",
                     border: form.genre === "mixte" ? "2px solid #B45309" : "1.5px solid var(--line)",
                     background: form.genre === "mixte" ? "#FFFBEB" : "var(--card)",
                     color: form.genre === "mixte" ? "#B45309" : "var(--ink)",
-                    fontWeight: 800, fontSize: 13, transition: "all 0.2s"
+                    fontWeight: 800, fontSize: 13.5, transition: "all 0.2s",
+                    boxShadow: form.genre === "mixte" ? "0 4px 12px rgba(180, 83, 9, 0.15)" : "none"
                   }}>
                     <input 
                       type="radio" 
@@ -592,7 +597,7 @@ export default function AdminProduits() {
                       onChange={() => set("genre", "mixte")} 
                       style={{ display: "none" }}
                     />
-                    Mixte
+                    <span>Mixte</span>
                   </label>
                 </div>
               </div>
