@@ -650,41 +650,8 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
                 }
               }}
             >
-              <Heart size={18} color="#B4483A" fill={location.search.includes("favoris=1") ? "#B4483A" : "none"} /> 
               <span>Favoris</span>
             </Link>
-
-            {/* RECHARGE CREDIT */}
-            {boutique?.modulesActifs?.rechargeCredit !== false && (
-              <Link
-                to="/recharge-credit"
-                style={{
-                  fontSize: 15, fontWeight: 700, textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
-                  padding: "9px 20px", borderRadius: 30, transition: "all 0.2s ease",
-                  background: location.pathname.includes("recharge") ? "#EFF6FF" : "transparent",
-                  color: location.pathname.includes("recharge") ? "#0284C7" : "var(--ink)",
-                  border: location.pathname.includes("recharge") ? "1.5px solid #0284C7" : "1.5px solid transparent",
-                  boxShadow: location.pathname.includes("recharge") ? "0 2px 10px rgba(2, 132, 199, 0.12)" : "none"
-                }}
-                onMouseEnter={(e) => {
-                  if (!location.pathname.includes("recharge")) {
-                    e.currentTarget.style.background = "#EFF6FF";
-                    e.currentTarget.style.borderColor = "rgba(2, 132, 199, 0.2)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!location.pathname.includes("recharge")) {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.borderColor = "transparent";
-                  }
-                }}
-              >
-                <Zap size={18} color="#0284C7" fill="#0284C7" /> 
-                <span>Recharge Crédit</span>
-                <span style={{ fontSize: 10.5, background: "#0284C7", color: "#fff", padding: "2px 7px", borderRadius: 10, fontWeight: 800 }}>Direct</span>
-              </Link>
-            )}
 
             {/* MES COMMANDES */}
             {user?.role === "client" && (
@@ -705,13 +672,14 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
           </div>
         </div>
 
-        {/* ROW 3: SECONDARY CATEGORIES BAR & GALLERY */}
-        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", overflow: "hidden" }}>
-          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box" }}>
+        {/* ROW 3: SECONDARY CATEGORIES BAR & GALLERY (DROPDOWN PLEINEMENT VISIBLE ET FLOTTANT) */}
+        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", position: "relative", zIndex: 900 }}>
+          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box", position: "relative" }}>
 
             {/* DROPDOWN BUTTON FOR ALL CATEGORIES */}
             <div ref={categoriesRef} style={{ position: "relative", flexShrink: 0 }}>
               <button
+                type="button"
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 style={{
                   background: "linear-gradient(135deg, var(--forest-dark, #831843), var(--forest, #BE185D))",
@@ -722,15 +690,15 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
                   transition: "transform 0.15s ease, box-shadow 0.15s ease"
                 }}
               >
-                <Menu size={18} /> <span>Toutes les catégories</span> <ChevronDown size={15} />
+                <Menu size={18} /> <span>Toutes les catégories</span> <ChevronDown size={15} style={{ transform: categoriesOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
               </button>
 
               {categoriesOpen && (
                 <div style={{
-                  position: "absolute", top: "calc(100% + 8px)", left: 0,
-                  width: 270, background: "var(--card)", borderRadius: 16,
-                  border: "1.5px solid var(--line)", boxShadow: "0 12px 36px rgba(0,0,0,0.2)",
-                  zIndex: 3000, overflow: "hidden", padding: "8px 0"
+                  position: "absolute", top: "calc(100% + 10px)", left: 0,
+                  width: 290, background: "var(--card)", borderRadius: 16,
+                  border: "1.5px solid var(--line)", boxShadow: "0 18px 50px rgba(0,0,0,0.25)",
+                  zIndex: 9999, overflow: "hidden", padding: "8px 0"
                 }}>
                   {categories.length === 0 ? (
                     <div style={{ padding: "14px 18px", fontSize: 13, color: "var(--muted)" }}>Aucune catégorie</div>
@@ -875,23 +843,6 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
                 <Heart size={18} color="#B4483A" fill="#B4483A" />
                 <span style={{ flex: 1 }}>Favoris</span>
               </Link>
-
-              {boutique?.modulesActifs?.rechargeCredit !== false && (
-                <Link 
-                  to="/recharge-credit" 
-                  onClick={() => setMobileMoreOpen(false)} 
-                  style={{ 
-                    display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", 
-                    textDecoration: "none", color: "var(--ink)", fontWeight: 700, fontSize: 14,
-                    borderBottom: "1px solid var(--line)", background: "#fff",
-                    transition: "background 0.15s"
-                  }}
-                >
-                  <Zap size={18} color="#0284C7" fill="#0284C7" />
-                  <span style={{ flex: 1 }}>Recharge Crédit</span>
-                  <span style={{ fontSize: 10, background: "#0284C7", color: "#fff", padding: "1px 6px", borderRadius: 8, fontWeight: 800 }}>Direct</span>
-                </Link>
-              )}
 
               <Link 
                 to="/a-propos" 

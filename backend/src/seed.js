@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { Boutique, User, Category, Product, Order, OrderItem, Review, Marque, Testimonial } = require("./models");
+const { Boutique, User, Category, Product, Order, OrderItem, Review, Marque, Testimonial, Famille } = require("./models");
 
 /**
  * Insère les données de démonstration Cosmétique & Beauté dans boutiquesdb

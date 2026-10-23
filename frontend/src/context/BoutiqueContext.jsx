@@ -20,7 +20,7 @@ const DEFAULT_FALLBACK_BOUTIQUE = {
   horairesOuverture: "Tous les jours de 08h30 à 23h00",
   modulesActifs: {
     commandes: true,
-    rechargeCredit: true,
+    rechargeCredit: false,
     homeBanners: true,
     sideBanners: true,
     vente: true,
