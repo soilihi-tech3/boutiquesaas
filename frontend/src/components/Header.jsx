@@ -136,18 +136,44 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
     <>
       <header style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", position: "sticky", top: 0, zIndex: 1000, boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
         {/* ROW 1: MAIN HEADER ROW */}
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "12px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
+        <div style={{ maxWidth: 1520, margin: "0 auto", padding: "12px clamp(16px, 2.5vw, 36px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
 
-          {/* LOGO (FAR LEFT) */}
-          <Link to="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
+          {/* LOGO & NOM D'ENTREPRISE : MAQUETTE LUXE & ÉLÉGANTE */}
+          <Link to="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", flexShrink: 0 }}>
             {boutique?.logoUrl ? (
-              <img src={boutique.logoUrl} alt={boutique.nom} style={{ height: 38, borderRadius: 10, objectFit: "contain" }} />
+              <div style={{
+                height: 46, width: 46, borderRadius: 12, overflow: "hidden",
+                background: "#fff", border: "1.5px solid var(--line)",
+                boxShadow: "0 3px 12px rgba(0,0,0,0.06)", display: "flex",
+                alignItems: "center", justifyContent: "center", padding: 3, flexShrink: 0
+              }}>
+                <img src={boutique.logoUrl} alt={boutique.nom} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+              </div>
             ) : (
-              <Store size={26} color="var(--forest)" />
+              <div style={{
+                width: 46, height: 46, borderRadius: 12,
+                background: "linear-gradient(135deg, var(--forest-dark, #064E3B), var(--forest, #BE185D))",
+                display: "flex", alignItems: "center", justifyContent: "center", color: "#fff",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+              }}>
+                <Store size={22} color="#fff" />
+              </div>
             )}
-            <span style={{ fontSize: 19, fontWeight: 900, color: "var(--forest-dark)", letterSpacing: "-0.5px" }}>
-              {boutique?.nom || ""}
-            </span>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{
+                fontSize: 20, fontWeight: 900, color: "var(--forest-dark)", letterSpacing: "0.5px",
+                textTransform: "uppercase", lineHeight: 1.15
+              }}>
+                {boutique?.nom || "Élégance & Cosmétiques"}
+              </span>
+              <span style={{
+                fontSize: 10.5, fontWeight: 700, color: "var(--sage, #059669)", textTransform: "uppercase",
+                letterSpacing: "1.6px", marginTop: 2, display: "flex", alignItems: "center", gap: 5
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981", display: "inline-block", boxShadow: "0 0 6px #10B981" }}></span>
+                Boutique Officielle
+              </span>
+            </div>
           </Link>
 
           {/* MAIN NAV LINKS (MOVED TO ROW 2) */}
@@ -502,8 +528,8 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
         </div>
 
         {/* ROW 2: DESKTOP NAVIGATION BAR */}
-        <div className="bs-desktop-nav" style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", padding: "10px 24px" }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", gap: 32, alignItems: "center" }}>
+        <div className="bs-desktop-nav" style={{ background: "var(--card)", borderBottom: "1px solid var(--line)", padding: "10px clamp(16px, 2.5vw, 36px)" }}>
+          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", gap: 32, alignItems: "center" }}>
             <Link to="/" style={{ fontSize: 14.5, fontWeight: 700, color: location.pathname === "/" ? "var(--forest)" : "var(--ink)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s ease", whiteSpace: "nowrap" }}>
               <Home size={16} /> Accueil
             </Link>
@@ -532,8 +558,8 @@ export default function Header({ setCartOpen: setCartOpenProp }) {
         </div>
 
         {/* ROW 3: SECONDARY CATEGORIES BAR & GALLERY */}
-        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "8px 24px", width: "100%", boxSizing: "border-box", overflow: "hidden" }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box" }}>
+        <div style={{ background: "var(--paper)", borderBottom: "1px solid var(--line)", padding: "8px clamp(16px, 2.5vw, 36px)", width: "100%", boxSizing: "border-box", overflow: "hidden" }}>
+          <div style={{ maxWidth: 1520, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, width: "100%", boxSizing: "border-box" }}>
 
             {/* DROPDOWN BUTTON FOR ALL CATEGORIES */}
             <div ref={categoriesRef} style={{ position: "relative", flexShrink: 0 }}>

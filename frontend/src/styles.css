@@ -554,12 +554,12 @@ html[data-theme="dark"] .bs-operator-logo-box img {
   font-weight: 700;
 }
 
-/* ---- Layout Shell ---- */
+/* ---- Layout Shell (Largeur Grand Standing) ---- */
 .bs-shell {
-  max-width: 1400px;
+  max-width: 1520px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 clamp(16px, 2.5vw, 36px) 60px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -569,11 +569,11 @@ html[data-theme="dark"] .bs-operator-logo-box img {
   position: relative;
   width: 100% !important;
   max-width: 100% !important;
-  height: clamp(300px, 34vw, 440px);
-  margin: 16px 0 28px;
-  border-radius: 20px;
+  height: clamp(340px, 36vw, 480px);
+  margin: 16px 0 32px;
+  border-radius: 24px;
   overflow: hidden !important;
-  box-shadow: 0 12px 36px rgba(18, 59, 136, 0.10), 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
   background: var(--forest-dark);
   box-sizing: border-box;
 }
@@ -592,9 +592,11 @@ html[data-theme="dark"] .bs-operator-logo-box img {
   align-items: center;
   flex-shrink: 0;
   background-size: cover !important;
-  background-position: center center !important;
+  background-position: center right !important;
   background-repeat: no-repeat !important;
   image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
   box-sizing: border-box;
 }
 
@@ -603,10 +605,10 @@ html[data-theme="dark"] .bs-operator-logo-box img {
   inset: 0;
   background: linear-gradient(
     90deg, 
-    rgba(10, 25, 47, 0.90) 0%, 
-    rgba(10, 25, 47, 0.68) 45%, 
-    rgba(10, 25, 47, 0.22) 72%, 
-    rgba(10, 25, 47, 0.05) 100%
+    rgba(15, 23, 42, 0.82) 0%, 
+    rgba(15, 23, 42, 0.52) 38%, 
+    rgba(15, 23, 42, 0.12) 65%, 
+    transparent 100%
   );
   pointer-events: none;
 }
@@ -794,6 +796,87 @@ html[data-theme="dark"] .bs-operator-logo-box img {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 22px;
+}
+
+/* Accueil : EXACTEMENT 4 PRODUITS PAR LIGNE, grand format équilibré, zéro débordement */
+.bs-grid-home {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+@media (max-width: 1200px) {
+  .bs-grid-home {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+@media (max-width: 860px) {
+  .bs-grid-home {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .bs-grid-home {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+/* Catalogue : EXACTEMENT 5 PRODUITS PAR LIGNE sur grand écran */
+.bs-grid-catalogue {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 1400px) {
+  .bs-grid-catalogue {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+@media (max-width: 1080px) {
+  .bs-grid-catalogue {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .bs-grid-catalogue {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .bs-grid-catalogue {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+/* Éléments de défilement horizontal (4 cartes visibles par ligne) */
+.bs-scroll-item {
+  flex: 0 0 calc((100% - 48px) / 4);
+  min-width: 250px;
+  max-width: 340px;
+  flex-shrink: 0;
+}
+@media (max-width: 1200px) {
+  .bs-scroll-item {
+    flex: 0 0 calc((100% - 32px) / 3);
+    min-width: 220px;
+  }
+}
+@media (max-width: 768px) {
+  .bs-scroll-item {
+    flex: 0 0 calc((100% - 16px) / 2);
+    min-width: 180px;
+  }
+}
+@media (max-width: 480px) {
+  .bs-scroll-item {
+    flex: 0 0 170px;
+  }
 }
 
 .bs-card {

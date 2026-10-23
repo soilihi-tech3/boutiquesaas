@@ -474,15 +474,8 @@ export default function Catalogue() {
 
       {loading ? (
         /* ── PREMIUM SHIMMER SKELETON LOADER ── */
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: 20,
-            padding: "4px 0 20px",
-          }}
-        >
-          {[0, 80, 160, 240, 320, 400, 480, 560].map((delay, i) => (
+        <div className="bs-grid-catalogue" style={{ padding: "4px 0 20px" }}>
+          {[0, 80, 160, 240, 320, 400, 480, 560, 640, 720].map((delay, i) => (
             <SkeletonCard key={i} delay={delay} />
           ))}
         </div>
@@ -504,8 +497,8 @@ export default function Catalogue() {
                 Aucun produit dans vos favoris
               </h3>
               <p style={{ margin: 0, fontSize: 14 }}>
-                Parcourez le catalogue et cliquez sur l&apos;ic\u00f4ne c\u0153ur d&apos;un produit pour
-                l&apos;ajouter \u00e0 vos favoris personnels !
+                Parcourez le catalogue et cliquez sur l'icône cœur d'un produit pour
+                l'ajouter à vos favoris personnels !
               </p>
             </div>
           )}
@@ -520,11 +513,11 @@ export default function Catalogue() {
                 borderRadius: 16,
               }}
             >
-              Aucun produit ne correspond \u00e0 vos crit\u00e8res de recherche.
+              Aucun produit ne correspond à vos critères de recherche.
             </div>
           )}
 
-          <div className="bs-grid">
+          <div className="bs-grid-catalogue">
             {displayedProducts.map((p) => (
               <ProductCard key={p.id} product={p} isFavorisPage={onlyFavoris} />
             ))}

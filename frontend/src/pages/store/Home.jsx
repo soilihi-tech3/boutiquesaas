@@ -122,7 +122,7 @@ function CategoryScrollSection({ category, products, onNavigate, badgeColor = "v
           }}
         >
           {products.map((p) => (
-            <div key={p.id} style={{ minWidth: 220, maxWidth: 220, flexShrink: 0 }}>
+            <div key={p.id} className="bs-scroll-item">
               <ProductCard product={p} />
             </div>
           ))}
@@ -358,6 +358,27 @@ export default function Home() {
             >
               <div className="bs-slide-overlay"></div>
               <div className="bs-slide-content">
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(255, 255, 255, 0.18)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255, 255, 255, 0.35)",
+                  padding: "6px 16px",
+                  borderRadius: 30,
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: "#FDE68A",
+                  letterSpacing: "1.4px",
+                  textTransform: "uppercase",
+                  marginBottom: 14,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)"
+                }}>
+                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#F59E0B", display: "inline-block", boxShadow: "0 0 8px #F59E0B" }}></span>
+                  {boutique?.nom ? `Maison ${boutique.nom}` : "Maison d'Élégance & Cosmétiques"}
+                </div>
                 <h1>{slide.title}</h1>
                 <p>{slide.subtitle}</p>
                 <button 
@@ -430,7 +451,7 @@ export default function Home() {
           <div className="bs-section-title" style={{ marginTop: 36 }}>
             <h2>Offres & Promotions</h2>
           </div>
-          <div className="bs-grid">
+          <div className="bs-grid-home">
             {promos.map((p) => <ProductCard key={p.id} product={p} />)}
           </div>
         </>
@@ -451,6 +472,87 @@ export default function Home() {
           />
         );
       })()}
+
+      {/* BANNIÈRES PROMOTIONNELLES / SLIDE BANNERS (JUSTE EN BAS DE NOUVEAUX ARRIVAGES) */}
+      {sideBanners.length > 0 && (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: sideBanners.length === 1 ? "1fr" : "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: 20,
+          marginTop: 16,
+          marginBottom: 40,
+          width: "100%"
+        }}>
+          {sideBanners.map((sb, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleBannerClick(sb)}
+              style={{
+                borderRadius: 20,
+                overflow: "hidden",
+                position: "relative",
+                height: 220,
+                cursor: "pointer",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                border: "1px solid var(--line)"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 14px 32px rgba(0,0,0,0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)";
+              }}
+            >
+              <img
+                src={sb.imageUrl}
+                alt={sb.title || "Banner"}
+                loading="lazy"
+                decoding="async"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  imageRendering: "-webkit-optimize-contrast"
+                }}
+              />
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.35) 50%, transparent 100%)",
+                padding: "20px 24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end"
+              }}>
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "rgba(255,255,255,0.2)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  color: "#fff",
+                  fontSize: 11,
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                  padding: "4px 12px",
+                  borderRadius: 20,
+                  width: "fit-content",
+                  marginBottom: 8
+                }}>
+                  Édition Spéciale
+                </div>
+                {sb.title && <div style={{ color: "#fff", fontWeight: 800, fontSize: "clamp(17px, 2vw, 21px)", textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>{sb.title}</div>}
+                {sb.subtitle && <div style={{ color: "rgba(255,255,255,0.9)", fontSize: 13, marginTop: 4, textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>{sb.subtitle}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* 5. COLLECTIONS : SECTION FEMME, SECTION HOMME, SECTION MIXTE (APRÈS) */}
       {femmeProducts.length > 0 && (
@@ -502,35 +604,7 @@ export default function Home() {
         );
       })}
 
-      {/* 7. BANNIÈRES SECONDAIRES */}
-      {sideBanners.length > 0 && (
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16,
-          marginTop: 36, marginBottom: 36
-        }}>
-          {sideBanners.map((sb, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleBannerClick(sb)}
-              style={{
-                borderRadius: 16, overflow: "hidden", position: "relative", height: 180,
-                cursor: "pointer", boxShadow: "0 4px 16px rgba(0,0,0,0.08)", transition: "transform 0.2s"
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-4px)"}
-              onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
-            >
-              <img src={sb.imageUrl} alt={sb.title || "Banner"} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{
-                position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)",
-                padding: 16, display: "flex", flexDirection: "column", justifyContent: "flex-end"
-              }}>
-                {sb.title && <div style={{ color: "#fff", fontWeight: 800, fontSize: 16 }}>{sb.title}</div>}
-                {sb.subtitle && <div style={{ color: "rgba(255,255,255,0.85)", fontSize: 12, marginTop: 4 }}>{sb.subtitle}</div>}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+
 
       {/* 8. SECTION CE QUE DISENT NOS CLIENTS (TÉMOIGNAGES WHATSAPP EN FIN JUSTE AVANT LE FOOTER) */}
       {filteredTestimonials.length > 0 && (
