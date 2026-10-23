@@ -252,6 +252,7 @@ async function ensureColumns() {
       { name: "paydunya_private_key", type: "VARCHAR(255) NULL" },
       { name: "paydunya_token", type: "VARCHAR(255) NULL" },
       { name: "a_propos_image_url", type: "LONGTEXT NULL" },
+      { name: "a_propos_banner_url", type: "LONGTEXT NULL" },
       // PayTech & UnitechPay
       { name: "paytech_api_key",        type: "VARCHAR(255) NULL" },
       { name: "paytech_api_secret",     type: "VARCHAR(255) NULL" },
@@ -272,6 +273,10 @@ async function ensureColumns() {
     }
 
     const tableProducts = await queryInterface.describeTable("products");
+    if (!tableProducts["genre"]) {
+      console.log("[MIGRATION] Ajout colonne genre sur products");
+      await sequelize.query(`ALTER TABLE products ADD COLUMN genre VARCHAR(20) DEFAULT 'femme';`);
+    }
     if (!tableProducts["is_nouveau"]) {
       console.log("[MIGRATION] Ajout colonne is_nouveau sur products");
       await sequelize.query(`ALTER TABLE products ADD COLUMN is_nouveau TINYINT(1) DEFAULT 0;`);
